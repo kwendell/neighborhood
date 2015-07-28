@@ -10,7 +10,8 @@ var ViewModel = function() {
 
   // viewData.forEach(function() {
        var homeView = new HomeView();
-       var view = new View();
+       var historyView = new HistoryView();
+       var mapView = new MapView();
       // Push objects with keys onto the array.
       /*
       self.viewList[homeView.name()]=homeView;
@@ -18,14 +19,16 @@ var ViewModel = function() {
       */
       //var homeViewInstance = {homeView.name:homeView};
       self.viewList.push({name:homeView.name,obj:homeView});
-      self.viewList.push({name:view.name,obj:view});
+      self.viewList.push({name:historyView.name,obj:historyView});
+      self.viewList.push({name:mapView.name,obj:mapView});
   // });
    this.viewList()[0].isShowing=true;
    this.currentView = ko.observable(this.viewList()[0]);
 
 
-   this.isHome =  ko.computed(function() {var retval = "Home"==self.currentView().name();return retval;});
-   this.isView =  ko.computed(function() {var retval = "View"==self.currentView().name();return retval;});
+  this.isHome =  ko.computed(function() {var retval = "Home"==self.currentView().name();return retval;});
+  this.isHistory =  ko.computed(function() {var retval = "History"==self.currentView().name();return retval;});
+  this.isMap =  ko.computed(function() {var retval = "Map"==self.currentView().name();return retval;});
 
 
    this.setView = function(clickedView) {
@@ -37,11 +40,18 @@ var ViewModel = function() {
 
 };
 
-var View  = function(data) {
-   this.name = ko.observable("View");
+var HistoryView  = function(data) {
+   this.name = ko.observable("History");
 
 
 };
+
+var MapView  = function(data) {
+   this.name = ko.observable("Map");
+
+
+};
+
 
 var HomeView = function(data) {
 

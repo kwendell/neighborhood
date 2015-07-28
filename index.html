@@ -19,7 +19,8 @@
         <div data-bind="with:currentView">
         <h2 data-bind="text: name"></h2>
         <div data-bind="if :$parent.isHome">Home View</div>
-         <div data-bind="if :$parent.isView">View View</div>
+        <div data-bind="if :$parent.isHistory">History View</div>
+        <div data-bind="if :$parent.isMap">Map View</div>
 		</div>
 		</div>
     </div>
