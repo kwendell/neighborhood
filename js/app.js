@@ -10,6 +10,7 @@ var ViewModel = function() {
 
   // viewData.forEach(function() {
        var homeView = new HomeView();
+
        var historyView = new HistoryView();
        var mapView = new MapView();
       // Push objects with keys onto the array.
@@ -18,11 +19,20 @@ var ViewModel = function() {
       self.viewList[view.name()]=view;
       */
       //var homeViewInstance = {homeView.name:homeView};
-      self.viewList.push({name:homeView.name,obj:homeView});
-      self.viewList.push({name:historyView.name,obj:historyView});
-      self.viewList.push({name:mapView.name,obj:mapView});
+      /*
+      self.viewList.push({name:homeView.name,obj:homeView,content:homeView.content});
+      self.viewList.push({name:historyView.name,obj:historyView,content:"historyContent"});
+      self.viewList.push({name:mapView.name,obj:mapView,content:"mapContent"});
+      */
+      self.viewList.push(homeView);
+      self.viewList.push(historyView);
+      self.viewList.push(mapView);
   // });
-   this.viewList()[0].isShowing=true;
+
+   this.homeView = homeView;
+   this.mapView =mapView;
+   this.historyView=historyView;
+
    this.currentView = ko.observable(this.viewList()[0]);
 
 
@@ -33,6 +43,7 @@ var ViewModel = function() {
 
    this.setView = function(clickedView) {
 
+       console.log(clickedView.name());
       self.currentView(clickedView);
 
 
@@ -40,28 +51,25 @@ var ViewModel = function() {
 
 };
 
-var HistoryView  = function(data) {
+var HistoryView  = function() {
    this.name = ko.observable("History");
+
 
 
 };
 
-var MapView  = function(data) {
+var MapView  = function() {
    this.name = ko.observable("Map");
 
 
 };
 
 
-var HomeView = function(data) {
+var HomeView = function() {
+  this.content=ko.observable("Hiding in plain sight of Silicon Valley is the Communications Hill neigborhood.  Tree lined"+
+    " streets beckon 'come hither' summoning the feelings of Old Tuscany.");
 
   this.name=ko.observable("Home");
-  this.articlesURL = "http://api.nytimes.com/svc/search/v2/articlesearch.json?q="+"San Jose CA"+"&sort=newest&api-key="+api_key;
-
-
-  this.text = "Hiding in plain view of the Silicon Valley is Communications Hill.   Communications Hill is a San Jose neighborhood" +
-  " between Willow Glen and Santa Teresa.  The area boasts a park, a walking trail, a vineyard and a popular " +
-  "public exercise area known as the Grand Staircase.  The neighborhood is steeped in a rich history of the valley's golden age of agriculture.";
 
 };
 
