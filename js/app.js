@@ -74,6 +74,21 @@ var HomeView = function() {
 
   this.name=ko.observable("Home");
 
+    var cityValue="San Jose CA";
+    var articlesURL = "http://api.nytimes.com/svc/search/v2/articlesearch.json?q="+cityValue+"&sort=newest&api-key="+api_key;
+     var $nytHeaderElem = $('#nytimes-articles');
+    $.getJSON(articlesURL,function(data)  {
+
+        $nytHeaderElem.text("NY Articles About "+cityValue);
+        var articles = data.response.docs;alert("articles.length: "+articles.length);
+        for (var i=0;i<articles.length;i++)  {
+            var article = articles[i];
+            $nytHeaderElem.append('<li class="article">'+'<a href="'+article.web_url+'">'+article.headline.main+'</a>'
+                               +'<p>'+article.snippet+'</p>'+'</li>');
+        }
+    }).error(function() {alert("error")} );
+
+
 };
 
 ko.applyBindings(new ViewModel());
