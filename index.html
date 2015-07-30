@@ -22,7 +22,7 @@
           <div data-bind="if :isHome">
             <p data-bind="text: homeView.content"></p>
              <p data-bind="text: homeView.content2"></p>
-
+            <ul id="nytimes-articles" class="article-list"></ul>
 
           </div>
 
@@ -36,6 +36,7 @@
 
   </div>
   <script src="js/lib/knockout-3.2.0.js"></script>
+  <script src="js/lib/jquery.min.js"></script>
   <script src="js/app.js"></script>
 </body>
 </html>
