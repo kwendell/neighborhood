@@ -43,8 +43,9 @@ var ViewModel = function() {
 
    this.setView = function(clickedView) {
 
-       console.log(clickedView.name());
+      // console.log(clickedView.name());
       self.currentView(clickedView);
+      console.log(self.currentView().name());
 
 
    };
@@ -71,8 +72,9 @@ var HomeView = function() {
     "the valley's golden agricultural age.");
   this.content2=ko.observable("Tree lined streets beckon 'come hither' summoning the feelings of Old Tuscany.  The trees, these great "+
     "harbingers of seasons, providing a respite from the elements and the urgencies of life.");
-
+  var self = this;
   this.name=ko.observable("Home");
+  this.sj_articles=ko.observableArray([]);
 
     var cityValue="San Jose CA";
     var articlesURL = "http://api.nytimes.com/svc/search/v2/articlesearch.json?q="+cityValue+"&sort=newest&api-key="+api_key;
@@ -80,11 +82,12 @@ var HomeView = function() {
     $.getJSON(articlesURL,function(data)  {
 
         $nytHeaderElem.text("NY Articles About "+cityValue);
-        var articles = data.response.docs;alert("articles.length: "+articles.length);
+        var articles = data.response.docs;
         for (var i=0;i<articles.length;i++)  {
             var article = articles[i];
-            $nytHeaderElem.append('<li class="article">'+'<a href="'+article.web_url+'">'+article.headline.main+'</a>'
-                               +'<p>'+article.snippet+'</p>'+'</li>');
+            self.sj_articles.push(article);
+           // $nytHeaderElem.append('<li class="article">'+'<a href="'+article.web_url+'">'+article.headline.main+'</a>'
+             //                  +'<p>'+article.snippet+'</p>'+'</li>');
         }
     }).error(function() {alert("error")} );
 
