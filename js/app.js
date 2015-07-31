@@ -138,5 +138,18 @@ var HomeView = function() {
 
             var parameterMap = OAuth.getParameterMap(message.parameters);
             console.log(parameterMap);
+            //http://api.yelp.com/v2/search?term=food&location=San+Francisco
+             $.ajax({
+                'url' : message.action,
+                'data' : parameterMap,
+                'cache': true,
+                'dataType' : 'jsonp',
+                'jsonpCallback' : 'cb',
+                'success' : function(data, textStats, XMLHttpRequest) {
+                    console.log(data);
+                    //$("body").append(output);
+                }
+            });
+
  };
 ko.applyBindings(new ViewModel());
