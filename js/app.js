@@ -74,27 +74,15 @@ var HomeView = function() {
     "harbingers of seasons, providing a respite from the elements and the urgencies of life.");
   var self = this;
   this.name=ko.observable("Home");
-  this.sj_articles=ko.observableArray([]);
-
-    var cityValue="San Jose CA";
-    var articlesURL = "http://api.nytimes.com/svc/search/v2/articlesearch.json?q="+cityValue+"&sort=newest&api-key="+api_key;
-     var $nytHeaderElem = $('#nytimes-articles');
-     constructYelpUrl();
-    $.getJSON(articlesURL,function(data)  {
-
-        $nytHeaderElem.text("NY Articles About "+cityValue);
-        var articles = data.response.docs;
-        for (var i=0;i<articles.length;i++)  {
-            var article = articles[i];
-            self.sj_articles.push(article);
-           // $nytHeaderElem.append('<li class="article">'+'<a href="'+article.web_url+'">'+article.headline.main+'</a>'
-             //                  +'<p>'+article.snippet+'</p>'+'</li>');
-        }
-    }).error(function() {alert("error")} );
+  this.commHill_ratings=ko.observableArray([]);
 
 
-};
- var constructYelpUrl = function() {
+    // constructYelpUrl();
+
+
+
+
+ //this.constructYelpUrl = function() {
  var auth = {
                 //
                 // Update with your auth tokens.
@@ -137,7 +125,7 @@ var HomeView = function() {
             OAuth.SignatureMethod.sign(message, accessor);
 
             var parameterMap = OAuth.getParameterMap(message.parameters);
-            console.log(parameterMap);
+
             //http://api.yelp.com/v2/search?term=food&location=San+Francisco
              $.ajax({
                 'url' : message.action,
@@ -147,9 +135,14 @@ var HomeView = function() {
                 'jsonpCallback' : 'cb',
                 'success' : function(data, textStats, XMLHttpRequest) {
                     console.log(data);
+                    for (var i =0 ; i < data.businesses.length; i++)  {
+                       //console.log(data.businesses[i].rating+"  "+data.businesses[i].snippet_text);
+                       self.commHill_ratings.push(data.businesses[i]);
+                    }
                     //$("body").append(output);
                 }
             });
+             };
 
- };
+ //};
 ko.applyBindings(new ViewModel());

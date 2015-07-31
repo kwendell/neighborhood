@@ -23,11 +23,11 @@
           <p data-bind="text: homeView.content"></p>
           <p data-bind="text: homeView.content2"></p>
          <!-- <ul id="nytimes-articles" class="article-list"> -->
-          <ul data-bind="foreach:homeView.sj_articles">
+          <ul data-bind="foreach:homeView.commHill_ratings">
             <!-- '<li class="article">'+'<a href="'+article.web_url+'">'+article.headline.main+'</a>'
                                +'<p>'+article.snippet+'</p>'+'</li>'
              -->
-             <li><a href="web_url" data-bind="text: headline.main"></a><p data-bind="text: snippet"></p></li>
+             <li><a href="web_url" data-bind="text: rating"></a><p data-bind="text: snippet_text"></p></li>
 
 
           </ul>
