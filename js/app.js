@@ -79,6 +79,7 @@ var HomeView = function() {
     var cityValue="San Jose CA";
     var articlesURL = "http://api.nytimes.com/svc/search/v2/articlesearch.json?q="+cityValue+"&sort=newest&api-key="+api_key;
      var $nytHeaderElem = $('#nytimes-articles');
+     constructYelpUrl();
     $.getJSON(articlesURL,function(data)  {
 
         $nytHeaderElem.text("NY Articles About "+cityValue);
@@ -93,5 +94,49 @@ var HomeView = function() {
 
 
 };
+ var constructYelpUrl = function() {
+ var auth = {
+                //
+                // Update with your auth tokens.
+                //
+                consumerKey : "z9UpnZkXudM4U8L7bJ2OCA",
+                consumerSecret : "WT8KJx3gGjGyDPce8P6D6Ipdng0",
+                accessToken : "StQXcW2XMfNYdh9AwmOqJIiqlbu540_3",
+                // This example is a proof of concept, for how to use the Yelp v2 API with javascript.
+                // You wouldn't actually want to expose your access token secret like this in a real application.
+                accessTokenSecret : "X2jx2__xJleIqbyhameg--afIEc",
+                serviceProvider : {
+                    signatureMethod : "HMAC-SHA1"
+                }
+            };
 
+            var terms = 'Communications+Hill';
+            var near = 'San+Jose';
+
+            var accessor = {
+                consumerSecret : auth.consumerSecret,
+                tokenSecret : auth.accessTokenSecret
+            };
+            parameters = [];
+            parameters.push(['term', terms]);
+            parameters.push(['location', near]);
+            parameters.push(['callback', 'cb']);
+            parameters.push(['oauth_consumer_key', auth.consumerKey]);
+            parameters.push(['oauth_consumer_secret', auth.consumerSecret]);
+            parameters.push(['oauth_token', auth.accessToken]);
+            parameters.push(['oauth_signature_method', 'HMAC-SHA1']);
+
+            var message = {
+                'action' : 'http://api.yelp.com/v2/search',
+                'method' : 'GET',
+                'parameters' : parameters
+            };
+
+
+           OAuth.setTimestampAndNonce(message);
+            OAuth.SignatureMethod.sign(message, accessor);
+
+            var parameterMap = OAuth.getParameterMap(message.parameters);
+            console.log(parameterMap);
+ };
 ko.applyBindings(new ViewModel());
