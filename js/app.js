@@ -68,9 +68,9 @@ var MapView  = function() {
 
 var HomeView = function() {
   this.content=ko.observable("Hiding in plain sight of Silicon Valley is the Communications Hill neigborhood.  The neighborhood "+
-    "boasts a walking trail, a park, a popular exercise area and a vineyard.  Communications Hill is steeped the history of "+
-    "the valley's golden agricultural age.");
-  this.content2=ko.observable("Tree lined streets beckon 'come hither' summoning the feelings of Old Tuscany.  The trees, these great "+
+    "boasts a walking trail, a park, a popular exercise area and a vineyard.  Communications Hill is at at once steeped the history of "+
+    "the valley's golden agricultural age and today's tech oriented lifestyles.");
+  this.content2=ko.observable("Tree lined streets beckon 'come hither' summoning remembrances of Old Tuscany.  These "+
     "harbingers of seasons, providing a respite from the elements and the urgencies of life.");
   var self = this;
   this.name=ko.observable("Home");

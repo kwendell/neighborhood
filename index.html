@@ -15,6 +15,11 @@
         <ul data-bind="foreach:viewList">
           <li data-bind="text:name, click:$parent.setView"></li>
         </ul>
+         <ul data-bind="foreach:homeView.commHill_ratings">
+
+             <li><span data-bind="text: name+', '"></span>Rating:</span><span data-bind="text: rating"></span><p data-bind="text: snippet_text"></p></li>
+
+          </ul>
 	    </div>
 	    <div class="col-md-7">
       <!--  <div data-bind="with:currentView"> -->
@@ -24,14 +29,7 @@
           <p data-bind="text: homeView.content"></p>
           <p data-bind="text: homeView.content2"></p>
          <!-- <ul id="nytimes-articles" class="article-list"> -->
-          <ul data-bind="foreach:homeView.commHill_ratings">
-            <!-- '<li class="article">'+'<a href="'+article.web_url+'">'+article.headline.main+'</a>'
-                               +'<p>'+article.snippet+'</p>'+'</li>'
-             -->
-             <li><span data-bind="text: name+', '"></span>Rating:</span><span data-bind="text: rating"></span><p data-bind="text: snippet_text"></p></li>
 
-
-          </ul>
 
         </div>
         <div data-bind="if :isHistory">History View</div>
