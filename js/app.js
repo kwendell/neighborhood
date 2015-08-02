@@ -13,17 +13,8 @@ var ViewModel = function() {
 
        var historyView = new HistoryView();
        var mapView = new MapView();
-      // Push objects with keys onto the array.
-      /*
-      self.viewList[homeView.name()]=homeView;
-      self.viewList[view.name()]=view;
-      */
-      //var homeViewInstance = {homeView.name:homeView};
-      /*
-      self.viewList.push({name:homeView.name,obj:homeView,content:homeView.content});
-      self.viewList.push({name:historyView.name,obj:historyView,content:"historyContent"});
-      self.viewList.push({name:mapView.name,obj:mapView,content:"mapContent"});
-      */
+
+
       self.viewList.push(homeView);
       self.viewList.push(historyView);
       self.viewList.push(mapView);
@@ -60,7 +51,13 @@ var HistoryView  = function() {
 };
 
 var MapView  = function() {
-   this.name = ko.observable("Map");
+    this.name = ko.observable("Map");
+
+
+
+
+
+
 
 
 };
@@ -69,9 +66,9 @@ var MapView  = function() {
 var HomeView = function() {
   this.content=ko.observable("Hiding in plain sight of Silicon Valley is the Communications Hill neigborhood.  The neighborhood "+
     "boasts a walking trail, a park, a popular exercise area and a vineyard.  Communications Hill is at at once steeped the history of "+
-    "the valley's golden agricultural age and today's tech oriented lifestyles.");
+    "the valley's agricultural age and today's tech oriented lifestyle.");
   this.content2=ko.observable("Tree lined streets beckon 'come hither' summoning remembrances of Old Tuscany.  These "+
-    "harbingers of seasons, providing a respite from the elements and the urgencies of life.");
+    "harbingers of season provide a respite from the elements and the urgencies of life.");
   var self = this;
   this.name=ko.observable("Home");
   this.commHill_ratings=ko.observableArray([]);
@@ -145,4 +142,6 @@ var HomeView = function() {
              };
 
  //};
+
+
 ko.applyBindings(new ViewModel());

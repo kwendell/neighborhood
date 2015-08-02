@@ -6,16 +6,18 @@
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/app.css">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
+  <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?libraries=places"></script>
     <title>Neighborhood:  Communications Hill</title>
 </head>
 <body>
   <div class="container">
     <div class="row">
 	    <div class="col-md-3">
-        <ul data-bind="foreach:viewList">
+        <ul data-bind="foreach:viewList" id="navigation">
           <li data-bind="text:name, click:$parent.setView"></li>
         </ul>
-         <ul data-bind="foreach:homeView.commHill_ratings">
+        <h4>Communitations Hill Area Reviews</h4>
+         <ul data-bind="foreach:homeView.commHill_ratings" class="newsprint">
 
              <li><span data-bind="text: name+', '"></span>Rating:</span><span data-bind="text: rating"></span><p data-bind="text: snippet_text"></p></li>
 
@@ -34,6 +36,10 @@
         </div>
         <div data-bind="if :isHistory">History View</div>
         <div data-bind="if :isMap">Map View</div>
+          <div id="map">
+
+          </div>
+
       </div>
     </div>
   </div>
