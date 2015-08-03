@@ -35,10 +35,10 @@
 
         </div>
         <div data-bind="if :isHistory">History View</div>
-        <div data-bind="if :isMap">Map View</div>
-          <div id="map">
-
-          </div>
+        <div data-bind="if :isMap">
+		<div id="mapDiv" data-bind="style:{width:'300px',height:'300px'},map:myMap"></div>
+		</div>
+         
 
       </div>
     </div>
