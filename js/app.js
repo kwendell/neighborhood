@@ -1,33 +1,22 @@
 
  var api_key = "c76fa576c8399b0b88d14111dce6e3e8:18:72432843";
 var ViewModel = function() {
+  var self = this;
+  this.viewList = ko.observableArray([]);
 
+  var homeView = new HomeView();
+  var historyView = new HistoryView();
+  var mapView = new MapView();
 
+  self.viewList.push(homeView);
+  self.viewList.push(historyView);
+  self.viewList.push(mapView);
 
+  this.homeView = homeView;
+  this.mapView =mapView;
+  this.historyView=historyView;
 
-   var self = this;
-
-
-
-   this.viewList = ko.observableArray([]);
-
-  // viewData.forEach(function() {
-       var homeView = new HomeView();
-
-       var historyView = new HistoryView();
-       var mapView = new MapView();
-
-
-      self.viewList.push(homeView);
-      self.viewList.push(historyView);
-      self.viewList.push(mapView);
-  // });
-
-   this.homeView = homeView;
-   this.mapView =mapView;
-   this.historyView=historyView;
-
-   this.currentView = ko.observable(this.viewList()[0]);
+  this.currentView = ko.observable(this.viewList()[0]);
 
 
   this.isHome =  ko.computed(function() {var retval = "Home"==self.currentView().name();return retval;});
@@ -35,38 +24,25 @@ var ViewModel = function() {
   this.isMap =  ko.computed(function() {var retval = "Map"==self.currentView().name();return retval;});
 
 
-   this.setView = function(clickedView) {
-
-      // console.log(clickedView.name());
-      self.currentView(clickedView);
-      console.log(self.currentView().name());
-
-
-   };
-
+  this.setView = function(clickedView) {
+    self.currentView(clickedView);
+  }
 };
 
 var HistoryView  = function() {
    this.name = ko.observable("History");
-
-
-
 };
 
+
 var MapView  = function() {
-    this.name = ko.observable("Map");
-    var mapViewSelf = this;
+  this.name = ko.observable("Map");
+  var mapViewSelf = this;
 
-    mapViewSelf.myMap = ko.observable({
-        lat: ko.observable(37.285790),
-        lng: ko.observable(-121.860046)});
+  mapViewSelf.myMap = ko.observable({
+    lat: ko.observable(37.285790),
+    lng: ko.observable(-121.860046)
+  });
 
-
-
-
-
-
-   // end verify
 };
 
 
@@ -80,58 +56,50 @@ var HomeView = function() {
   this.name=ko.observable("Home");
   this.commHill_ratings=ko.observableArray([]);
 
-
-    // constructYelpUrl();
-
-
-
-
- //this.constructYelpUrl = function() {
- var auth = {
+  var auth = {
                 //
                 // Update with your auth tokens.
                 //
-                consumerKey : "z9UpnZkXudM4U8L7bJ2OCA",
-                consumerSecret : "WT8KJx3gGjGyDPce8P6D6Ipdng0",
-                accessToken : "StQXcW2XMfNYdh9AwmOqJIiqlbu540_3",
-                // This example is a proof of concept, for how to use the Yelp v2 API with javascript.
-                // You wouldn't actually want to expose your access token secret like this in a real application.
-                accessTokenSecret : "X2jx2__xJleIqbyhameg--afIEc",
-                serviceProvider : {
+    consumerKey : "z9UpnZkXudM4U8L7bJ2OCA",
+    consumerSecret : "WT8KJx3gGjGyDPce8P6D6Ipdng0",
+    accessToken : "StQXcW2XMfNYdh9AwmOqJIiqlbu540_3",
+
+    accessTokenSecret : "X2jx2__xJleIqbyhameg--afIEc",
+    serviceProvider : {
                     signatureMethod : "HMAC-SHA1"
-                }
-            };
+    }
+  };
 
-            var terms = 'Communications+Hill';
-            var near = 'San+Jose';
+  var terms = 'Communications+Hill';
+  var near = 'San+Jose';
 
-            var accessor = {
+  var accessor = {
                 consumerSecret : auth.consumerSecret,
                 tokenSecret : auth.accessTokenSecret
-            };
-            parameters = [];
-            parameters.push(['term', terms]);
-            parameters.push(['location', near]);
-            parameters.push(['callback', 'cb']);
-            parameters.push(['oauth_consumer_key', auth.consumerKey]);
-            parameters.push(['oauth_consumer_secret', auth.consumerSecret]);
-            parameters.push(['oauth_token', auth.accessToken]);
-            parameters.push(['oauth_signature_method', 'HMAC-SHA1']);
+  };
+  parameters = [];
+  parameters.push(['term', terms]);
+  parameters.push(['location', near]);
+  parameters.push(['callback', 'cb']);
+  parameters.push(['oauth_consumer_key', auth.consumerKey]);
+  parameters.push(['oauth_consumer_secret', auth.consumerSecret]);
+  parameters.push(['oauth_token', auth.accessToken]);
+  parameters.push(['oauth_signature_method', 'HMAC-SHA1']);
 
-            var message = {
+  var message = {
                 'action' : 'http://api.yelp.com/v2/search',
                 'method' : 'GET',
                 'parameters' : parameters
-            };
+  };
 
 
-           OAuth.setTimestampAndNonce(message);
-            OAuth.SignatureMethod.sign(message, accessor);
+  OAuth.setTimestampAndNonce(message);
+  OAuth.SignatureMethod.sign(message, accessor);
 
-            var parameterMap = OAuth.getParameterMap(message.parameters);
+  var parameterMap = OAuth.getParameterMap(message.parameters);
 
             //http://api.yelp.com/v2/search?term=food&location=San+Francisco
-             $.ajax({
+  $.ajax({
                 'url' : message.action,
                 'data' : parameterMap,
                 'cache': true,
@@ -145,24 +113,26 @@ var HomeView = function() {
                     }
                     //$("body").append(output);
                 }
-            });
-             };
+  });
+};
 
- //};
+/**
+ * Put the custom binding in the map context
+ */
 
 ko.bindingHandlers.map = {
 
-    init: function (element, valueAccessor, allBindingsAccessor, viewModel) {
-	 var mapObj = ko.utils.unwrapObservable(valueAccessor());
-	 var latLng = new google.maps.LatLng(
+  init: function (element, valueAccessor, allBindingsAccessor, viewModel) {
+	  var mapObj = ko.utils.unwrapObservable(valueAccessor());
+	  var latLng = new google.maps.LatLng(
             ko.utils.unwrapObservable(mapObj.lat),
             ko.utils.unwrapObservable(mapObj.lng));
 	  var mapOptions = { center: latLng,
                           zoom: 15,
                           mapTypeId: google.maps.MapTypeId.ROADMAP};
-	 mapObj.googleMap = new google.maps.Map(element, mapOptions);
+	  mapObj.googleMap = new google.maps.Map(element, mapOptions);
 
 
-    }
+  }
 };
 ko.applyBindings(new ViewModel());
