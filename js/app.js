@@ -7,9 +7,6 @@ var ViewModel = function() {
 
    var self = this;
 
-    self.myMap = ko.observable({
-        lat: ko.observable(37.285790),
-        lng: ko.observable(-121.860046)});
 
 
    this.viewList = ko.observableArray([]);
@@ -58,6 +55,12 @@ var HistoryView  = function() {
 
 var MapView  = function() {
     this.name = ko.observable("Map");
+    var mapViewSelf = this;
+
+    mapViewSelf.myMap = ko.observable({
+        lat: ko.observable(37.285790),
+        lng: ko.observable(-121.860046)});
+
 
 
 

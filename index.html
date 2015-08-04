@@ -36,8 +36,9 @@
         </div>
         <div data-bind="if :isHistory">History View</div>
         <div data-bind="if :isMap">
-		<div id="mapDiv" data-bind="style:{width:'500px',height:'500px'},map:myMap"></div>
-		</div>
+          <h4 data-bind="text: mapView.name"></h4>
+		      <div id="mapDiv" data-bind="style:{width:'500px',height:'500px'},map:mapView.myMap"></div>
+		    </div>
 
 
       </div>
