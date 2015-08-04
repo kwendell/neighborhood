@@ -16,7 +16,7 @@
         <ul data-bind="foreach:viewList" id="navigation">
           <li data-bind="text:name, click:$parent.setView"></li>
         </ul>
-        <h4>Communitations Hill Area Reviews</h4>
+        <h4 data-bind="text:area_reviews"></h4>
          <ul data-bind="foreach:homeView.commHill_ratings" class="newsprint">
 
              <li><span data-bind="text: name+', '"></span>Rating:</span><span data-bind="text: rating"></span><p data-bind="text: snippet_text"></p></li>
@@ -34,9 +34,11 @@
 
 
         </div>
-        <div data-bind="if :isHistory">History View</div>
+        <div data-bind="if :isHistory">
+          <h3 data-bind="text: historyView.name"></h3>
+        </div>
         <div data-bind="if :isMap">
-          <h4 data-bind="text: mapView.name"></h4>
+          <h3 data-bind="text: mapView.name"></h3>
 		      <div id="mapDiv" data-bind="style:{width:'500px',height:'500px'},map:mapView.myMap"></div>
 		    </div>
 
