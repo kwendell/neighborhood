@@ -6,10 +6,12 @@ var ViewModel = function() {
 
 
    var self = this;
-   
+
     self.myMap = ko.observable({
         lat: ko.observable(55),
         lng: ko.observable(11)});
+
+
    this.viewList = ko.observableArray([]);
 
   // viewData.forEach(function() {
@@ -57,32 +59,9 @@ var HistoryView  = function() {
 var MapView  = function() {
     this.name = ko.observable("Map");
 
-  var locations;
 
-  var mapOptions = {
-    disableDefaultUI: true
-  };
 
-   map = new google.maps.Map(document.querySelector('#mapDiv'), mapOptions);
-   // add a location
-   var locations = ["3001 Mary Helen Lane San Jose, CA 95136"];
-   locations.push(locations[0]);
 
-   //verity the location, set callback on success.
-    var service = new google.maps.places.PlacesService(map);
-
-    // Iterates through the array of locations, creates a search object for each location
-    for (var place in locations) {
-
-      // the search request object
-      var request = {
-        query: locations[place]
-      };
-
-      // Actually searches the Google Maps API for location data and runs the callback
-      // function with the search results after each search.
-      service.textSearch(request, function() {alert("Here's the callback");});
-    }
 
    // end verify
 };
@@ -176,11 +155,11 @@ ko.bindingHandlers.map = {
             ko.utils.unwrapObservable(mapObj.lat),
             ko.utils.unwrapObservable(mapObj.lng));
 	  var mapOptions = { center: latLng,
-                          zoom: 5, 
+                          zoom: 5,
                           mapTypeId: google.maps.MapTypeId.ROADMAP};
 	 mapObj.googleMap = new google.maps.Map(element, mapOptions);
 
-      alert("calling init...");
+
     }
 };
 ko.applyBindings(new ViewModel());
