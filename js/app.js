@@ -8,8 +8,8 @@ var ViewModel = function() {
    var self = this;
 
     self.myMap = ko.observable({
-        lat: ko.observable(55),
-        lng: ko.observable(11)});
+        lat: ko.observable(37.285790),
+        lng: ko.observable(-121.860046)});
 
 
    this.viewList = ko.observableArray([]);
@@ -155,7 +155,7 @@ ko.bindingHandlers.map = {
             ko.utils.unwrapObservable(mapObj.lat),
             ko.utils.unwrapObservable(mapObj.lng));
 	  var mapOptions = { center: latLng,
-                          zoom: 5,
+                          zoom: 15,
                           mapTypeId: google.maps.MapTypeId.ROADMAP};
 	 mapObj.googleMap = new google.maps.Map(element, mapOptions);
 
