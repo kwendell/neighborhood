@@ -3,6 +3,7 @@
 var ViewModel = function() {
   var self = this;
   this.viewList = ko.observableArray([]);
+  this.area_reviews = ko.observable("Communitations Hill Area Reviews");
 
   var homeView = new HomeView();
   var historyView = new HistoryView();
@@ -106,7 +107,7 @@ var HomeView = function() {
                 'dataType' : 'jsonp',
                 'jsonpCallback' : 'cb',
                 'success' : function(data, textStats, XMLHttpRequest) {
-                    console.log(data);
+
                     for (var i =0 ; i < data.businesses.length; i++)  {
                        //console.log(data.businesses[i].rating+"  "+data.businesses[i].snippet_text);
                        self.commHill_ratings.push(data.businesses[i]);
