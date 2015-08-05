@@ -41,7 +41,8 @@ var MapView  = function() {
 
   mapViewSelf.myMap = ko.observable({
     lat: ko.observable(37.285790),
-    lng: ko.observable(-121.860046)
+    lng: ko.observable(-121.860046),
+	marker: ko.observable("marker")
   });
 
 };
@@ -128,6 +129,7 @@ ko.bindingHandlers.map = {
 	  var latLng = new google.maps.LatLng(
             ko.utils.unwrapObservable(mapObj.lat),
             ko.utils.unwrapObservable(mapObj.lng));
+			alert(ko.utils.unwrapObservable(mapObj.marker));
 	  var mapOptions = { center: latLng,
                           zoom: 15,
                           mapTypeId: google.maps.MapTypeId.ROADMAP};
