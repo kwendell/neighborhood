@@ -133,6 +133,7 @@ ko.bindingHandlers.map = {
 	  var latLng = new google.maps.LatLng(
             ko.utils.unwrapObservable(mapObj.lat),
             ko.utils.unwrapObservable(mapObj.lng));
+			alert("length markers array is "+ko.utils.unwrapObservable(mapObj.markers).length);
 			alert(ko.utils.unwrapObservable(mapObj.markers)[1].name);
 	  var mapOptions = { center: latLng,
                           zoom: 15,
