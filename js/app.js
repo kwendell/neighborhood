@@ -42,7 +42,11 @@ var MapView  = function() {
   mapViewSelf.myMap = ko.observable({
     lat: ko.observable(37.285790),
     lng: ko.observable(-121.860046),
-	markers: ko.observable([{lat:37.282002,lng:-121.860046}])
+	markers: ko.observable([{name:"Grand StairCase",lat:37.282002,lng:-121.860046},
+	                        {name:"Vineyard",lat:37.282002,lng:-121.860046}
+	
+	
+	])
   });
 
 };
@@ -129,7 +133,7 @@ ko.bindingHandlers.map = {
 	  var latLng = new google.maps.LatLng(
             ko.utils.unwrapObservable(mapObj.lat),
             ko.utils.unwrapObservable(mapObj.lng));
-			alert(ko.utils.unwrapObservable(mapObj.markers)[0].lat+", "+ko.utils.unwrapObservable(mapObj.markers)[0].lng);
+			alert(ko.utils.unwrapObservable(mapObj.markers)[1].name);
 	  var mapOptions = { center: latLng,
                           zoom: 15,
                           mapTypeId: google.maps.MapTypeId.ROADMAP};
