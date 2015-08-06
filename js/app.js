@@ -38,14 +38,15 @@ var HistoryView  = function() {
 var MapView  = function() {
   this.name = ko.observable("Map");
   var mapViewSelf = this;
- 
+
   mapViewSelf.myMap = ko.observable({
     lat: ko.observable(37.285790),
     lng: ko.observable(-121.860046),
 	markers: ko.observable([{name:"Grand StairCase",lat:37.282002,lng:-121.860046},
-	                        {name:"Vineyard",lat:37.282002,lng:-121.860046}
-	
-	
+	                        {name:"Walking Trail",lat:37.286008, lng:-121.861894},
+                          {name:"Veiera Park",lat:37.286790, lng:-121.861462}
+
+
 	])
   });
 
@@ -133,8 +134,12 @@ ko.bindingHandlers.map = {
 	  var latLng = new google.maps.LatLng(
             ko.utils.unwrapObservable(mapObj.lat),
             ko.utils.unwrapObservable(mapObj.lng));
-			alert("length markers array is "+ko.utils.unwrapObservable(mapObj.markers).length);
-			alert(ko.utils.unwrapObservable(mapObj.markers)[1].name);
+
+    for (var i = 0 ; i < ko.utils.unwrapObservable(mapObj.markers).length; i++)  {
+      var thing = ko.utils.unwrapObservable(mapObj.markers)[i];
+       alert(thing.name);
+    }
+
 	  var mapOptions = { center: latLng,
                           zoom: 15,
                           mapTypeId: google.maps.MapTypeId.ROADMAP};
