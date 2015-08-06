@@ -134,16 +134,22 @@ ko.bindingHandlers.map = {
 	  var latLng = new google.maps.LatLng(
             ko.utils.unwrapObservable(mapObj.lat),
             ko.utils.unwrapObservable(mapObj.lng));
+    var mapOptions = { center: latLng,
+                          zoom: 15,
+                          mapTypeId: google.maps.MapTypeId.ROADMAP};
+    mapObj.googleMap = new google.maps.Map(element, mapOptions);
 
     for (var i = 0 ; i < ko.utils.unwrapObservable(mapObj.markers).length; i++)  {
       var thing = ko.utils.unwrapObservable(mapObj.markers)[i];
-       alert(thing.name);
+      var currentLatlng = new google.maps.LatLng(thing.lat,thing.lng);
+      var marker = new google.maps.Marker({
+      position: currentLatlng,
+      map: mapObj.googleMap,
+      title: thing.name
+      });
     }
 
-	  var mapOptions = { center: latLng,
-                          zoom: 15,
-                          mapTypeId: google.maps.MapTypeId.ROADMAP};
-	  mapObj.googleMap = new google.maps.Map(element, mapOptions);
+
 
 
   }
