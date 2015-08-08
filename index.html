@@ -12,18 +12,21 @@
 <body>
   <div class="container">
     <div class="row">
-	    <div class="col-md-3">
+	    <div class="col-md-2">
         <ul data-bind="foreach:viewList" id="navigation">
           <li data-bind="text:name, click:$parent.setView"></li>
         </ul>
+        <!--
         <h4 data-bind="text:area_reviews"></h4>
-         <ul data-bind="foreach:homeView.commHill_ratings" class="newsprint">
+          <ul data-bind="foreach:homeView.commHill_ratings" class="newsprint">
 
-             <li><span data-bind="text: name+', '"></span>Rating:</span><span data-bind="text: rating"></span><p data-bind="text: snippet_text"></p></li>
+            <li><span data-bind="text: name+', '"></span>Rating:</span><span data-bind="text: rating"></span><p data-bind="text: snippet_text"></p>
+            </li>
 
           </ul>
+        -->
 	    </div>
-	    <div class="col-md-7">
+	    <div class="col-md-10">
       <!--  <div data-bind="with:currentView"> -->
        <h2 data-bind="text: name"></h2>
         <div data-bind="if :isHome">
@@ -39,8 +42,20 @@
         </div>
         <div data-bind="if :isMap">
           <h3 data-bind="text: mapView.name"></h3>
-          <input id="pac-input" type='text'></input>
-		      <div id="mapDiv" data-bind="style:{width:'100 %',height:'500px'},map:mapView.myMap"></div>
+          <div class="container">
+            <div class="row">
+              <div class="col-md-2">
+                <input id="s-input" class="controls" type="search" data-bind="textInput: mapView.query, valueUpdate: 'keyup'"></input>
+                <ul data-bind="foreach::mapView.points">
+                  <li data-bind="text:title"></li>
+                </ul>
+              </div>
+              <div class="col-md-10">
+
+		            <div id="mapDiv" data-bind="style:{width:'100 %',height:'500px'},map:mapView.myMap"></div>
+              </div>
+          </div>
+        </div>
 		    </div>
 
 
