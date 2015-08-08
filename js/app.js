@@ -43,8 +43,8 @@ var MapView  = function() {
     lat: ko.observable(37.285790),
     lng: ko.observable(-121.860046),
 	markers: ko.observable([{name:"Grand StairCase",lat:37.282002,lng:-121.860046},
-	                        {name:"Walking Trail",lat:37.286008, lng:-121.861894},
-                          {name:"Veiera Park",lat:37.286790, lng:-121.861462}
+	                      /*  {name:"Communications Hill trail",lat:37.286008, lng:-121.861894},*/
+                          {name:"Vieira Park",lat:37.286790, lng:-121.861462}
 
 
 	])
@@ -148,10 +148,44 @@ ko.bindingHandlers.map = {
       title: thing.name
       });
     }
+//  begin
+    var input = /** @type {HTMLInputElement} */(
+      document.getElementById('pac-input'));
+      mapObj.googleMap.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+
+
+      var defaultBounds = new google.maps.LatLngBounds(
+      new google.maps.LatLng(37.282002,-121.861894),
+      new google.maps.LatLng(37.286790,-121.860046));
+      mapObj.googleMap.fitBounds(defaultBounds);
+
+     // Create the search box and link it to the UI element.
+
+     mapObj.googleMap.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+
+     var searchBox = new google.maps.places.SearchBox(
+    /** @type {HTMLInputElement} */(input));
 
 
 
+      google.maps.event.addListener(searchBox, 'places_changed',
+        function() {
 
-  }
+          var places = searchBox.getPlaces();
+          if (places.length == 0) {
+           return;
+          }
+          console.log(places[0]);
+        }
+
+      );
+      // Bias the SearchBox results towards places that are within the bounds of the
+  // current map's viewport.
+      google.maps.event.addListener(mapObj.googleMap, 'bounds_changed', function() {
+        var bounds = mapObj.googleMap.getBounds();
+        searchBox.setBounds(bounds);
+      });
+
+      }
 };
 ko.applyBindings(new ViewModel());

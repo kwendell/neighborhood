@@ -13,3 +13,7 @@ body {
 
 	font-size: 24px;
 }
+#pac-input {
+	width: 16em;
+	height: 2em;
+}
