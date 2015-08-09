@@ -40,11 +40,15 @@ var MapView  = function() {
   var mapViewSelf = this;
 
   mapViewSelf.query = ko.observable('');
-  mapViewSelf.points = ko.observableArray([{title:"Grand StairCase"},{title:"Communications Hill Trail"},{title:"Vieira Park"}]);
+  mapViewSelf.points = ko.observableArray([
+    {name:"Grand Staircase",lat:37.282002,lng:-121.860046},
+    {name:"Communications Hill Trail",lat:37.286008, lng:-121.861894},
+    {name:"Vieira Park",lat:37.286790, lng:-121.861462}]);
+
   mapViewSelf.search = ko.computed(function(){
     return ko.utils.arrayFilter(mapViewSelf.points(), function(point){
 
-     return point.title.toLowerCase().indexOf(mapViewSelf.query().toLowerCase()) >= 0;
+     return point.name.toLowerCase().indexOf(mapViewSelf.query().toLowerCase()) >= 0;
 
     });
   });
@@ -52,7 +56,7 @@ var MapView  = function() {
   mapViewSelf.myMap = ko.observable({
     lat: ko.observable(37.285790),
     lng: ko.observable(-121.860046),
-	  markers: ko.observable([{name:"Grand StairCase",lat:37.282002,lng:-121.860046},
+	  markers: ko.observable([{name:"Grand Staircase",lat:37.282002,lng:-121.860046},
 	                          {name:"Communications Hill Trail",lat:37.286008, lng:-121.861894},
                             {name:"Vieira Park",lat:37.286790, lng:-121.861462}
 
