@@ -25,6 +25,7 @@ var ViewModel = function() {
   this.isMap =  ko.computed(function() {var retval = "Map"==self.currentView().name();return retval;});
 
 
+
   this.setView = function(clickedView) {
     self.currentView(clickedView);
   }
@@ -39,11 +40,14 @@ var MapView  = function() {
   this.name = ko.observable("Map");
   var mapViewSelf = this;
 
+ this.showMarker = function() {alert("show marker");};
   mapViewSelf.query = ko.observable('');
   mapViewSelf.points = ko.observableArray([
     {name:"Grand Staircase",lat:37.282002,lng:-121.860046},
     {name:"Communications Hill Trail",lat:37.286008, lng:-121.861894},
     {name:"Vieira Park",lat:37.286790, lng:-121.861462}]);
+
+
 
   mapViewSelf.search = ko.computed(function(){
     return ko.utils.arrayFilter(mapViewSelf.points(), function(point){
@@ -52,12 +56,17 @@ var MapView  = function() {
 
     });
   });
+
+
   // Map constructor
   mapViewSelf.myMap = ko.observable({
     lat: ko.observable(37.285790),
     lng: ko.observable(-121.860046),
-	  markers: ko.observable(mapViewSelf.points)
+	  markers: ko.observable(mapViewSelf.points),
+    objectRef :mapViewSelf
   });
+
+
 
 };
 
@@ -155,12 +164,23 @@ ko.bindingHandlers.map = {
 
       var currentLatlng = new google.maps.LatLng(pointsArray[i].lat,pointsArray[i].lng);
       var marker = new google.maps.Marker({
-      position: currentLatlng,
-      map: mapObj.googleMap,
-      title: pointsArray[i].name
+        position: currentLatlng,
+        map: mapObj.googleMap,
+        title: pointsArray[i].name
       });
+
+      google.maps.event.addListener(marker, 'click', function() {
+        mapObj.objectRef.showMarker();
+      });
+
     }
-//  begin
+
+
+    //  add listener to marker
+
+
+
+
 
 
 
