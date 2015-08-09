@@ -52,16 +52,11 @@ var MapView  = function() {
 
     });
   });
-
+  // Map constructor
   mapViewSelf.myMap = ko.observable({
     lat: ko.observable(37.285790),
     lng: ko.observable(-121.860046),
-	  markers: ko.observable([{name:"Grand Staircase",lat:37.282002,lng:-121.860046},
-	                          {name:"Communications Hill Trail",lat:37.286008, lng:-121.861894},
-                            {name:"Vieira Park",lat:37.286790, lng:-121.861462}
-
-
-	])
+	  markers: ko.observable(mapViewSelf.points)
   });
 
 };
@@ -153,13 +148,16 @@ ko.bindingHandlers.map = {
                           mapTypeId: google.maps.MapTypeId.ROADMAP};
     mapObj.googleMap = new google.maps.Map(element, mapOptions);
 
-    for (var i = 0 ; i < ko.utils.unwrapObservable(mapObj.markers).length; i++)  {
-      var thing = ko.utils.unwrapObservable(mapObj.markers)[i];
-      var currentLatlng = new google.maps.LatLng(thing.lat,thing.lng);
+    var pointsArray = ko.toJS(mapObj.markers);
+
+
+    for (var i = 0 ; i < pointsArray.length; i++)  {
+
+      var currentLatlng = new google.maps.LatLng(pointsArray[i].lat,pointsArray[i].lng);
       var marker = new google.maps.Marker({
       position: currentLatlng,
       map: mapObj.googleMap,
-      title: thing.name
+      title: pointsArray[i].name
       });
     }
 //  begin
@@ -172,24 +170,7 @@ ko.bindingHandlers.map = {
 
       mapObj.googleMap.fitBounds(defaultBounds);
 
-     // Create the search box and link it to the UI element.
 
-     //mapObj.googleMap.controls[google.maps.ControlPosition.TOP_RIGHT].push(input);
-
-    // var searchBox = new google.maps.places.SearchBox(
-    /** @type {HTMLInputElement} *///(input));
-
-
-
-
-   //autocomplete.bindTo('bounds', mapObj.googleMap);
-
-
-
-
-
-      // Bias the SearchBox results towards places that are within the bounds of the
-  // current map's viewport.
 
       }
 };
