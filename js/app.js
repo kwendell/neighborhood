@@ -40,7 +40,7 @@ var MapView  = function() {
   this.name = ko.observable("Map");
   var mapViewSelf = this;
 
-  this.showMarker = function() {alert("show marker");};
+  this.showMarker = function(mapViewSelf) {alert(mapViewSelf.lat);};
   mapViewSelf.query = ko.observable('');
   mapViewSelf.points = ko.observableArray([
     {name:"Grand Staircase",lat:37.282002,lng:-121.860046,method:mapViewSelf.showMarker},
