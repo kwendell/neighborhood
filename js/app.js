@@ -40,12 +40,12 @@ var MapView  = function() {
   this.name = ko.observable("Map");
   var mapViewSelf = this;
 
- this.showMarker = function() {alert("show marker");};
+  this.showMarker = function() {alert("show marker");};
   mapViewSelf.query = ko.observable('');
   mapViewSelf.points = ko.observableArray([
-    {name:"Grand Staircase",lat:37.282002,lng:-121.860046},
-    {name:"Communications Hill Trail",lat:37.286008, lng:-121.861894},
-    {name:"Vieira Park",lat:37.286790, lng:-121.861462}]);
+    {name:"Grand Staircase",lat:37.282002,lng:-121.860046,method:mapViewSelf.showMarker},
+    {name:"Communications Hill Trail",lat:37.286008, lng:-121.861894,method:mapViewSelf.showMarker},
+    {name:"Vieira Park",lat:37.286790, lng:-121.861462,method:mapViewSelf.showMarker}]);
 
 
 
@@ -63,6 +63,9 @@ var MapView  = function() {
     lat: ko.observable(37.285790),
     lng: ko.observable(-121.860046),
 	  markers: ko.observable(mapViewSelf.points),
+    // put the object refernce in the context
+    // yo to keep the showMarker method
+    // in the MapView
     objectRef :mapViewSelf
   });
 

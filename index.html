@@ -44,9 +44,10 @@
           <div class="container">
             <div class="row">
               <div class="col-md-3">
+
                 <input id="s-input" class="controls" type="search" data-bind="textInput: mapView.query, valueUpdate: 'keyup'"></input>
                 <ul data-bind="foreach:mapView.search()">
-                  <li ><a data-bind="text:name"></a></li>
+                  <li ><a data-bind="text:name,click:method"></a></li>
                 </ul>
               </div>  <!-- end small col -->
               <div class="col-md-9">
