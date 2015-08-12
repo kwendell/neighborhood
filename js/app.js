@@ -42,7 +42,7 @@ var MapView  = function() {
   var mapViewSelf = this;
   
 
-  this.showMarker = function(markerInstance) {alert(markerInstance.title);};
+  this.showMarker = function(markerInstance) {return markerInstance.title;};
 
   mapViewSelf.query = ko.observable('');
   mapViewSelf.points = ko.observableArray([
@@ -197,8 +197,9 @@ ko.bindingHandlers.map = {
       google.maps.event.addListener(marker, 'click', function() {
 	  
 	  // example of calling a method from the MapView instance.
-	     theMapView.showMarker(this);
-
+	  //   var currentTitle = theMapView.showMarker(this);
+		// alert("current title:"+currentTitle);
+       // infowindow.setContent(currentTitle);
         infowindow.open(mapObj.googleMap,this);
 		
 
@@ -207,6 +208,8 @@ ko.bindingHandlers.map = {
          // Handle the DOM ready event to create the StreetView panorama
       // as it can only be created once the DIV inside the infowindow is loaded in the DOM.
       google.maps.event.addListenerOnce(infowindow, "domready", function() {
+	   var currentTitle = theMapView.showMarker(this);
+	   alert(currentTitle);
         var panorama = new google.maps.StreetViewPanorama(streetview, {
             navigationControl: false,
             enableCloseButton: false,
