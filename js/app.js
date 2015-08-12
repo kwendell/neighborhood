@@ -40,8 +40,9 @@ var HistoryView  = function() {
 var MapView  = function() {
   this.name = ko.observable("Map");
   var mapViewSelf = this;
+  
 
-  this.showMarker = function(mapViewSelf) {alert(mapViewSelf.name);};
+  this.showMarker = function(markerInstance) {alert(markerInstance.title);};
 
   mapViewSelf.query = ko.observable('');
   mapViewSelf.points = ko.observableArray([
@@ -158,6 +159,8 @@ ko.bindingHandlers.map = {
             ko.utils.unwrapObservable(mapObj.lat),
             ko.utils.unwrapObservable(mapObj.lng));
 			
+	var theMapView =		 ko.utils.unwrapObservable(mapObj.objectRef);
+	
 	
     var mapOptions = { center: latLng,
                           zoom: 15,
@@ -192,9 +195,12 @@ ko.bindingHandlers.map = {
 
 
       google.maps.event.addListener(marker, 'click', function() {
+	  
+	  // example of calling a method from the MapView instance.
+	     theMapView.showMarker(this);
 
         infowindow.open(mapObj.googleMap,this);
-		console.log(objectRef.name);
+		
 
       });
 
