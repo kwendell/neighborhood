@@ -1,6 +1,7 @@
 
- var api_key = "c76fa576c8399b0b88d14111dce6e3e8:18:72432843";
-var ViewModel = function() {
+  var api_key = "c76fa576c8399b0b88d14111dce6e3e8:18:72432843";
+  var ViewModel = function() {
+  var title = ko.observable("Communications Hill");
   var self = this;
   this.viewList = ko.observableArray([]);
   this.area_reviews = ko.observable("Communitations Hill Area Reviews");
@@ -44,9 +45,9 @@ var MapView  = function() {
 
   mapViewSelf.query = ko.observable('');
   mapViewSelf.points = ko.observableArray([
-    {name:"Grand Staircase",lat:37.282002,lng:-121.860046,method:mapViewSelf.showMarker},
-    {name:"Communications Hill Trail",lat:37.286008, lng:-121.861894,method:mapViewSelf.showMarker},
-    {name:"Vieira Park",lat:37.286790, lng:-121.861462,method:mapViewSelf.showMarker}]);
+    {name:"Grand Staircase",lat:37.282002,lng:-121.860046,method:mapViewSelf.showMarker},   
+    {name:"Vieira Park",lat:37.286790, lng:-121.861462,method:mapViewSelf.showMarker},
+	{name:"Communications Hill Trail",lat:37.286008, lng:-121.861894,method:mapViewSelf.showMarker}]);
 
 
 
@@ -156,6 +157,8 @@ ko.bindingHandlers.map = {
 	  var latLng = new google.maps.LatLng(
             ko.utils.unwrapObservable(mapObj.lat),
             ko.utils.unwrapObservable(mapObj.lng));
+			
+	
     var mapOptions = { center: latLng,
                           zoom: 15,
                           mapTypeId: google.maps.MapTypeId.ROADMAP};
@@ -191,6 +194,7 @@ ko.bindingHandlers.map = {
       google.maps.event.addListener(marker, 'click', function() {
 
         infowindow.open(mapObj.googleMap,this);
+		console.log(objectRef.name);
 
       });
 

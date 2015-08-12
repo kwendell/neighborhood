@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="css/app.css">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
   <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?libraries=places"></script>
-    <title>Neighborhood:  Communications Hill</title>
+    <title>Communications Hill</title>
 </head>
 <body>
   <div class="container">
@@ -30,7 +30,7 @@
       <!--  <div data-bind="with:currentView"> -->
         <h2 data-bind="text: name"></h2>
         <div data-bind="if :isHome">
-          <h3>Home</h3>
+          <h3 data-bind="text: homeView.name"></h3>
           <p data-bind="text: homeView.content"></p>
           <p data-bind="text: homeView.content2"></p>
          <!-- <ul id="nytimes-articles" class="article-list"> -->
