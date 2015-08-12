@@ -40,7 +40,8 @@ var MapView  = function() {
   this.name = ko.observable("Map");
   var mapViewSelf = this;
 
-  this.showMarker = function(mapViewSelf) {alert(mapViewSelf.lat);};
+  this.showMarker = function(mapViewSelf) {alert(mapViewSelf.name);};
+
   mapViewSelf.query = ko.observable('');
   mapViewSelf.points = ko.observableArray([
     {name:"Grand Staircase",lat:37.282002,lng:-121.860046,method:mapViewSelf.showMarker},
@@ -162,7 +163,7 @@ ko.bindingHandlers.map = {
 
     var pointsArray = ko.toJS(mapObj.markers);
 
-
+    var infoWindows = new Array(pointsArray.length);
     for (var i = 0 ; i < pointsArray.length; i++)  {
 
       var currentLatlng = new google.maps.LatLng(pointsArray[i].lat,pointsArray[i].lng);
@@ -172,29 +173,53 @@ ko.bindingHandlers.map = {
         title: pointsArray[i].name
       });
 
-      google.maps.event.addListener(marker, 'click', function() {
-        mapObj.objectRef.showMarker();
+      var content = document.createElement("DIV");
+      var title = document.createElement("DIV");
+      title.innerHTML = pointsArray[i].name;
+      content.appendChild(title);
+      var streetview = document.createElement("DIV");
+      streetview.style.width = "200px";
+      streetview.style.height = "200px";
+      content.appendChild(streetview);
+
+      var infowindow = new google.maps.InfoWindow({
+        content: content
       });
+
+
+
+      google.maps.event.addListener(marker, 'click', function() {
+
+        infowindow.open(mapObj.googleMap,this);
+
+      });
+
+         // Handle the DOM ready event to create the StreetView panorama
+      // as it can only be created once the DIV inside the infowindow is loaded in the DOM.
+      google.maps.event.addListenerOnce(infowindow, "domready", function() {
+        var panorama = new google.maps.StreetViewPanorama(streetview, {
+            navigationControl: false,
+            enableCloseButton: false,
+            addressControl: false,
+            linksControl: false,
+            visible: true,
+            position: marker.getPosition()
+        });
+      });
+
+
 
     }
 
 
-    //  add listener to marker
-
-
-
-
-
-
-
-      var defaultBounds = new google.maps.LatLngBounds(
+    var defaultBounds = new google.maps.LatLngBounds(
       new google.maps.LatLng(37.282002,-121.861894),
       new google.maps.LatLng(37.286790,-121.860046));
 
-      mapObj.googleMap.fitBounds(defaultBounds);
+    mapObj.googleMap.fitBounds(defaultBounds);
 
 
 
-      }
-};
+    }
+  };
 ko.applyBindings(new ViewModel());
