@@ -51,14 +51,16 @@ var MapView  = function() {
    
   mapViewSelf.markerTitleToMarkerInstanceMap = new Array();
   mapViewSelf.delegateToMarker = function() {
+   // Get the marker instance and fire a click event
+   // to open the streetview panorama
    var theMarker = mapViewSelf.markerTitleToMarkerInstanceMap[this.name];
 	google.maps.event.trigger(theMarker, 'click');
   };
 
   mapViewSelf.query = ko.observable('');
   mapViewSelf.points = ko.observableArray([
-    {name:"Grand Staircase",lat:37.282002,lng:-121.860046,method:mapViewSelf.showMarker,heading:0,pitch:0,func:mapViewSelf.delegateToMarker},
-    {name:"Vieira Park",lat:37.286790, lng:-121.861462,method:mapViewSelf.showMarker,heading:0,pitch:0,func:mapViewSelf.delegateToMarker},
+    {name:"Grand Staircase",lat:37.281927, lng:-121.856255,method:mapViewSelf.showMarker,heading:330,pitch:0,func:mapViewSelf.delegateToMarker},
+    {name:"Vieira Park",lat:37.287020, lng:-121.861426,method:mapViewSelf.showMarker,heading:0,pitch:0,func:mapViewSelf.delegateToMarker},
 	{name:"Communications Hill Trail",lat:37.286008, lng:-121.861894,method:mapViewSelf.showMarker,heading:160,pitch:15,func:mapViewSelf.delegateToMarker}]);
   
   
@@ -101,11 +103,12 @@ var MapView  = function() {
 
 
 var HomeView = function() {
-  this.content=ko.observable("Hiding in plain sight of Silicon Valley is the Communications Hill neigborhood.  The neighborhood "+
-    "boasts a walking trail, a park, a popular exercise area and a vineyard.  Communications Hill is at at once steeped the history of "+
-    "the valley's agricultural age and today's tech oriented lifestyle.");
+  this.content=ko.observable("Hiding in plain sight of Silicon Valley is the Communications Hill neighborhood.  The "+
+    "neighborhood boasts a walking trail, a park, a popular exercise area and a vineyard.  Communications Hill is at at once steeped the history of "+
+    "the valley's agricultural age and today's tech lifestyle.");
   this.content2=ko.observable("Tree lined streets beckon 'come hither' summoning remembrances of Old Tuscany.  These "+
-    "harbingers of season provide a respite from the elements and the urgencies of life.");
+    "harbingers of season provide a respite from the elements and the urgencies of life.  There are stunning views " +
+	"from the walking trail and other vantage points.");
   var self = this;
   this.name=ko.observable("Home");
   this.commHill_ratings=ko.observableArray([]);
