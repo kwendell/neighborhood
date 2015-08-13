@@ -43,12 +43,27 @@ var MapView  = function() {
 
   mapViewSelf.currentMarker = ko.observable();
   mapViewSelf.setCurrentMarker = function(marker) {mapViewSelf.currentMarker(marker)};
+  
+  
+  
 
   mapViewSelf.query = ko.observable('');
   mapViewSelf.points = ko.observableArray([
-    {name:"Grand Staircase",lat:37.282002,lng:-121.860046,method:mapViewSelf.showMarker},
-    {name:"Vieira Park",lat:37.286790, lng:-121.861462,method:mapViewSelf.showMarker},
-	{name:"Communications Hill Trail",lat:37.286008, lng:-121.861894,method:mapViewSelf.showMarker}]);
+    {name:"Grand Staircase",lat:37.282002,lng:-121.860046,method:mapViewSelf.showMarker,heading:0,pitch:0},
+    {name:"Vieira Park",lat:37.286790, lng:-121.861462,method:mapViewSelf.showMarker,heading:0,pitch:0},
+	{name:"Communications Hill Trail",lat:37.286008, lng:-121.861894,method:mapViewSelf.showMarker,heading:160,pitch:15}]);
+  
+  
+  mapViewSelf.getPointsArrayFromMarkerTitle = function(title) {
+	var retobj = null;
+	for (var i=0;i<mapViewSelf.points().length;i++) {
+	    if (mapViewSelf.points()[i].name===title) {
+          retobj=mapViewSelf.points()[i];
+          break;		  
+	    }
+	}
+	return retobj;
+  };
 
 
 
@@ -129,7 +144,7 @@ var HomeView = function() {
 
   var parameterMap = OAuth.getParameterMap(message.parameters);
 
-            //http://api.yelp.com/v2/search?term=food&location=San+Francisco
+           
   $.ajax({
                 'url' : message.action,
                 'data' : parameterMap,
@@ -139,10 +154,10 @@ var HomeView = function() {
                 'success' : function(data, textStats, XMLHttpRequest) {
 
                     for (var i =0 ; i < data.businesses.length; i++)  {
-                       //console.log(data.businesses[i].rating+"  "+data.businesses[i].snippet_text);
+                    
                        self.commHill_ratings.push(data.businesses[i]);
                     }
-                    //$("body").append(output);
+                  
                 }
   });
 };
@@ -169,7 +184,7 @@ ko.bindingHandlers.map = {
 
     var pointsArray = ko.toJS(mapObj.markers);
 
-    var infoWindows = new Array(pointsArray.length);
+  
     for (var i = 0 ; i < pointsArray.length; i++)  {
 
       var currentLatlng = new google.maps.LatLng(pointsArray[i].lat,pointsArray[i].lng);
@@ -194,31 +209,32 @@ ko.bindingHandlers.map = {
 
 
 
-      google.maps.event.addListener(marker, 'click', function() {
+    google.maps.event.addListener(marker, 'click', function() {
 
-         theMapView.setCurrentMarker(this);
-
-          infowindow.open(mapObj.googleMap,this);
-
-
-
-      });
+        theMapView.setCurrentMarker(this);
+		var nowContent = new String(infowindow.getContent());
+		nowContent = nowContent.replace("Communications Hill Trail","current title");
+		
+		infowindow.open(mapObj.googleMap,this);
+    });
 
          // Handle the DOM ready event to create the StreetView panorama
       // as it can only be created once the DIV inside the infowindow is loaded in the DOM.
-      google.maps.event.addListener(infowindow, "domready", function() {
-        console.log(theMapView.currentMarker().getPosition());
-        console.log(theMapView.currentMarker().title);
-
+    google.maps.event.addListener(infowindow, "domready", function() {
+        var pointsRecord = theMapView.getPointsArrayFromMarkerTitle(theMapView.currentMarker().title);
         var panorama = new google.maps.StreetViewPanorama(streetview, {
             navigationControl: false,
             enableCloseButton: false,
             addressControl: false,
             linksControl: false,
             visible: true,
+			pov: {
+               heading: pointsRecord.heading,
+               pitch: pointsRecord.pitch
+            },
             position: theMapView.currentMarker().getPosition()
         });
-      });
+    });
 
 
 
