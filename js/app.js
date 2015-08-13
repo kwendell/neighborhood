@@ -194,11 +194,11 @@ ko.bindingHandlers.map = {
         title: pointsArray[i].name
       });
 
-      var content = document.createElement("DIV");
-      var title = document.createElement("DIV");
+      var content = document.createElement("div");
+      var title = document.createElement("div");
       title.innerHTML = pointsArray[i].name;
       content.appendChild(title);
-      var streetview = document.createElement("DIV");
+      var streetview = document.createElement("div");
       streetview.style.width = "200px";
       streetview.style.height = "200px";
       content.appendChild(streetview);
@@ -212,16 +212,17 @@ ko.bindingHandlers.map = {
     google.maps.event.addListener(marker, 'click', function() {
 
         theMapView.setCurrentMarker(this);
-		var nowContent = new String(infowindow.getContent());
-		nowContent = nowContent.replace("Communications Hill Trail","current title");
+		
 		
 		infowindow.open(mapObj.googleMap,this);
     });
 
          // Handle the DOM ready event to create the StreetView panorama
-      // as it can only be created once the DIV inside the infowindow is loaded in the DOM.
+     
     google.maps.event.addListener(infowindow, "domready", function() {
         var pointsRecord = theMapView.getPointsArrayFromMarkerTitle(theMapView.currentMarker().title);
+		title.innerHTML=theMapView.currentMarker().title;
+		// streetview is the div element reference for the panorama content destination.
         var panorama = new google.maps.StreetViewPanorama(streetview, {
             navigationControl: false,
             enableCloseButton: false,
