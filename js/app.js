@@ -4,7 +4,7 @@
   var title = ko.observable("Communications Hill");
   var self = this;
   this.viewList = ko.observableArray([]);
-  this.area_reviews = ko.observable("Communitations Hill Area Reviews");
+  this.area_reviews = ko.observable("Communications Hill Area Reviews");
 
   var homeView = new HomeView();
   var historyView = new HistoryView();
