@@ -1,11 +1,14 @@
 
-  var api_key = "c76fa576c8399b0b88d14111dce6e3e8:18:72432843";
+/* Constructor for knockout.js ViewModel
+ */ 
   var ViewModel = function() {
-  var title = ko.observable("Communications Hill");
+
   var self = this;
+  // Use observable array to hold the views, Home, Map and History
   this.viewList = ko.observableArray([]);
   this.area_reviews = ko.observable("Communications Hill Area Reviews");
-
+  // Constructor invocations for each of the constituent views Home,
+  // Map and History.
   var homeView = new HomeView();
   var historyView = new HistoryView();
   var mapView = new MapView();
@@ -17,26 +20,32 @@
   this.homeView = homeView;
   this.mapView =mapView;
   this.historyView=historyView;
-
+  
+  // Initialize the current view to the Home view. 
   this.currentView = ko.observable(this.viewList()[0]);
 
-
+  // Set up computed observables to switch to the views
+  // from the nav selection.
   this.isHome =  ko.computed(function() {var retval = "Home"==self.currentView().name();return retval;});
   this.isHistory =  ko.computed(function() {var retval = "History"==self.currentView().name();return retval;});
   this.isMap =  ko.computed(function() {var retval = "Map"==self.currentView().name();return retval;});
 
 
-
+  // method to keep track of currently selected view.
   this.setView = function(clickedView) {
     self.currentView(clickedView);
   }
 };
-
+/*
+ * Constructor for HistoryView
+ */
 var HistoryView  = function() {
    this.name = ko.observable("History");
 };
 
-
+/*
+ * Constructor for MapView
+ */
 var MapView  = function() {
   this.name = ko.observable("Map");
   var mapViewSelf = this;
@@ -58,12 +67,22 @@ var MapView  = function() {
   };
 
   mapViewSelf.query = ko.observable('');
+  
+  /** The points observable array holds the location data
+   *  to support the google map and panorama API
+   */
+   
   mapViewSelf.points = ko.observableArray([
     {name:"Grand Staircase",lat:37.281927, lng:-121.856255,method:mapViewSelf.showMarker,heading:330,pitch:0,func:mapViewSelf.delegateToMarker},
     {name:"Vieira Park",lat:37.287020, lng:-121.861426,method:mapViewSelf.showMarker,heading:135,pitch:0,func:mapViewSelf.delegateToMarker},
 	{name:"Communications Hill Trail",lat:37.286008, lng:-121.861894,method:mapViewSelf.showMarker,heading:160,pitch:15,func:mapViewSelf.delegateToMarker}]);
   
-  
+  /**
+   * The google map api is put in the knockout context
+   * so it can used in the data-bind attributes.  
+   * the getPointsArrayFromMakerTitle is used
+   * to pass some data to that.
+   */
   mapViewSelf.getPointsArrayFromMarkerTitle = function(title) {
 	var retobj = null;
 	for (var i=0;i<mapViewSelf.points().length;i++) {
@@ -92,9 +111,8 @@ var MapView  = function() {
     lat: ko.observable(37.286008),
     lng: ko.observable(-121.861894),
 	  markers: ko.observable(mapViewSelf.points),
-    // put the object refernce in the context
-    // yo to keep the showMarker method
-    // in the MapView
+    // put the view object reference in the context yo
+ 
     objectRef :mapViewSelf
   });
 
