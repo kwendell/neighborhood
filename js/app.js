@@ -88,8 +88,9 @@ var MapView  = function() {
 
   // Map constructor
   mapViewSelf.myMap = ko.observable({
-    lat: ko.observable(37.285790),
-    lng: ko.observable(-121.860046),
+  // center 37.286008, lng:-121.861894
+    lat: ko.observable(37.286008),
+    lng: ko.observable(-121.861894),
 	  markers: ko.observable(mapViewSelf.points),
     // put the object refernce in the context
     // yo to keep the showMarker method
