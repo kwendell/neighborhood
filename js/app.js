@@ -44,14 +44,22 @@ var MapView  = function() {
   mapViewSelf.currentMarker = ko.observable();
   mapViewSelf.setCurrentMarker = function(marker) {mapViewSelf.currentMarker(marker)};
   
-  
-  
+  /*
+   * This array is necessary to delegate the event from the 
+   * location link element to the marker element event.
+   */
+   
+  mapViewSelf.markerTitleToMarkerInstanceMap = new Array();
+  mapViewSelf.delegateToMarker = function() {
+   var theMarker = mapViewSelf.markerTitleToMarkerInstanceMap[this.name];
+	google.maps.event.trigger(theMarker, 'click');
+  };
 
   mapViewSelf.query = ko.observable('');
   mapViewSelf.points = ko.observableArray([
-    {name:"Grand Staircase",lat:37.282002,lng:-121.860046,method:mapViewSelf.showMarker,heading:0,pitch:0},
-    {name:"Vieira Park",lat:37.286790, lng:-121.861462,method:mapViewSelf.showMarker,heading:0,pitch:0},
-	{name:"Communications Hill Trail",lat:37.286008, lng:-121.861894,method:mapViewSelf.showMarker,heading:160,pitch:15}]);
+    {name:"Grand Staircase",lat:37.282002,lng:-121.860046,method:mapViewSelf.showMarker,heading:0,pitch:0,func:mapViewSelf.delegateToMarker},
+    {name:"Vieira Park",lat:37.286790, lng:-121.861462,method:mapViewSelf.showMarker,heading:0,pitch:0,func:mapViewSelf.delegateToMarker},
+	{name:"Communications Hill Trail",lat:37.286008, lng:-121.861894,method:mapViewSelf.showMarker,heading:160,pitch:15,func:mapViewSelf.delegateToMarker}]);
   
   
   mapViewSelf.getPointsArrayFromMarkerTitle = function(title) {
@@ -193,6 +201,11 @@ ko.bindingHandlers.map = {
         map: mapObj.googleMap,
         title: pointsArray[i].name
       });
+	  /*
+	   * place the marker instance in the title to 
+	   * instance map
+	   */
+	   theMapView.markerTitleToMarkerInstanceMap[marker.title]=marker;
 
       var content = document.createElement("div");
       var title = document.createElement("div");

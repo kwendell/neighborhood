@@ -16,7 +16,7 @@
         <ul data-bind="foreach:viewList" id="navigation">
           <li data-bind="text:name, click:$parent.setView"></li>
         </ul>
-        <!--
+       
         <h4 data-bind="text:area_reviews"></h4>
           <ul data-bind="foreach:homeView.commHill_ratings" class="newsprint">
 
@@ -24,13 +24,13 @@
             </li>
 
           </ul>
-        -->
+       
 	    </div>
 	    <div class="col-md-10">
       <!--  <div data-bind="with:currentView"> -->
         <h2 data-bind="text: name"></h2>
         <div data-bind="if :isHome">
-          <h3 data-bind="text: homeView.name"></h3>
+          <h3 data-bind="text: homeView.name">Home</h3>
           <p data-bind="text: homeView.content"></p>
           <p data-bind="text: homeView.content2"></p>
          <!-- <ul id="nytimes-articles" class="article-list"> -->
@@ -47,7 +47,7 @@
 
                 <input id="s-input" class="controls" type="search" data-bind="textInput: mapView.query, valueUpdate: 'keyup'"></input>
                 <ul data-bind="foreach:mapView.search()">
-                  <li ><a data-bind="text:name,click:method"></a></li>
+                  <li ><a data-bind="text:name,click:func"></a></li>
                 </ul>
               </div>  <!-- end small col -->
               <div class="col-md-9">
