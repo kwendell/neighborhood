@@ -40,13 +40,13 @@ var HistoryView  = function() {
 var MapView  = function() {
   this.name = ko.observable("Map");
   var mapViewSelf = this;
-  
 
-  this.showMarker = function(markerInstance) {return markerInstance.title;};
+  mapViewSelf.currentMarker = ko.observable();
+  mapViewSelf.setCurrentMarker = function(marker) {mapViewSelf.currentMarker(marker)};
 
   mapViewSelf.query = ko.observable('');
   mapViewSelf.points = ko.observableArray([
-    {name:"Grand Staircase",lat:37.282002,lng:-121.860046,method:mapViewSelf.showMarker},   
+    {name:"Grand Staircase",lat:37.282002,lng:-121.860046,method:mapViewSelf.showMarker},
     {name:"Vieira Park",lat:37.286790, lng:-121.861462,method:mapViewSelf.showMarker},
 	{name:"Communications Hill Trail",lat:37.286008, lng:-121.861894,method:mapViewSelf.showMarker}]);
 
@@ -158,10 +158,10 @@ ko.bindingHandlers.map = {
 	  var latLng = new google.maps.LatLng(
             ko.utils.unwrapObservable(mapObj.lat),
             ko.utils.unwrapObservable(mapObj.lng));
-			
+
 	var theMapView =		 ko.utils.unwrapObservable(mapObj.objectRef);
-	
-	
+
+
     var mapOptions = { center: latLng,
                           zoom: 15,
                           mapTypeId: google.maps.MapTypeId.ROADMAP};
@@ -195,28 +195,28 @@ ko.bindingHandlers.map = {
 
 
       google.maps.event.addListener(marker, 'click', function() {
-	  
-	  // example of calling a method from the MapView instance.
-	  //   var currentTitle = theMapView.showMarker(this);
-		// alert("current title:"+currentTitle);
-       // infowindow.setContent(currentTitle);
-        infowindow.open(mapObj.googleMap,this);
-		
+
+         theMapView.setCurrentMarker(this);
+
+          infowindow.open(mapObj.googleMap,this);
+
+
 
       });
 
          // Handle the DOM ready event to create the StreetView panorama
       // as it can only be created once the DIV inside the infowindow is loaded in the DOM.
-      google.maps.event.addListenerOnce(infowindow, "domready", function() {
-	   var currentTitle = theMapView.showMarker(this);
-	   alert(currentTitle);
+      google.maps.event.addListener(infowindow, "domready", function() {
+        console.log(theMapView.currentMarker().getPosition());
+        console.log(theMapView.currentMarker().title);
+
         var panorama = new google.maps.StreetViewPanorama(streetview, {
             navigationControl: false,
             enableCloseButton: false,
             addressControl: false,
             linksControl: false,
             visible: true,
-            position: marker.getPosition()
+            position: theMapView.currentMarker().getPosition()
         });
       });
 
@@ -229,7 +229,7 @@ ko.bindingHandlers.map = {
       new google.maps.LatLng(37.282002,-121.861894),
       new google.maps.LatLng(37.286790,-121.860046));
 
-    mapObj.googleMap.fitBounds(defaultBounds);
+   // mapObj.googleMap.fitBounds(defaultBounds);
 
 
 
