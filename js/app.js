@@ -1,6 +1,6 @@
 
 /* Constructor for knockout.js ViewModel
- */ 
+ */
   var ViewModel = function() {
 
   var self = this;
@@ -20,8 +20,8 @@
   this.homeView = homeView;
   this.mapView =mapView;
   this.historyView=historyView;
-  
-  // Initialize the current view to the Home view. 
+
+  // Initialize the current view to the Home view.
   this.currentView = ko.observable(this.viewList()[0]);
 
   // Set up computed observables to switch to the views
@@ -52,12 +52,12 @@ var MapView  = function() {
 
   mapViewSelf.currentMarker = ko.observable();
   mapViewSelf.setCurrentMarker = function(marker) {mapViewSelf.currentMarker(marker)};
-  
+
   /*
-   * This array is necessary to delegate the event from the 
+   * This array is necessary to delegate the event from the
    * location link element to the marker element event.
    */
-   
+
   mapViewSelf.markerTitleToMarkerInstanceMap = new Array();
   mapViewSelf.delegateToMarker = function() {
    // Get the marker instance and fire a click event
@@ -67,19 +67,19 @@ var MapView  = function() {
   };
 
   mapViewSelf.query = ko.observable('');
-  
+
   /** The points observable array holds the location data
    *  to support the google map and panorama API
    */
-   
+
   mapViewSelf.points = ko.observableArray([
     {name:"Grand Staircase",lat:37.281927, lng:-121.856255,method:mapViewSelf.showMarker,heading:330,pitch:0,func:mapViewSelf.delegateToMarker},
     {name:"Vieira Park",lat:37.287020, lng:-121.861426,method:mapViewSelf.showMarker,heading:135,pitch:0,func:mapViewSelf.delegateToMarker},
 	{name:"Communications Hill Trail",lat:37.286008, lng:-121.861894,method:mapViewSelf.showMarker,heading:160,pitch:15,func:mapViewSelf.delegateToMarker}]);
-  
+
   /**
    * The google map api is put in the knockout context
-   * so it can used in the data-bind attributes.  
+   * so it can used in the data-bind attributes.
    * the getPointsArrayFromMakerTitle is used
    * to pass some data to that.
    */
@@ -88,7 +88,7 @@ var MapView  = function() {
 	for (var i=0;i<mapViewSelf.points().length;i++) {
 	    if (mapViewSelf.points()[i].name===title) {
           retobj=mapViewSelf.points()[i];
-          break;		  
+          break;
 	    }
 	}
 	return retobj;
@@ -112,7 +112,7 @@ var MapView  = function() {
     lng: ko.observable(-121.861894),
 	  markers: ko.observable(mapViewSelf.points),
     // put the view object reference in the context yo
- 
+
     objectRef :mapViewSelf
   });
 
@@ -125,9 +125,22 @@ var HomeView = function() {
   this.content=ko.observable("Hiding in plain sight of Silicon Valley is the Communications Hill neighborhood.  The "+
     "neighborhood boasts a walking trail, a park, a popular exercise area and a vineyard.  Communications Hill is at at once steeped the history of "+
     "the valley's agricultural age and today's tech lifestyle.");
-  this.content2=ko.observable("Tree lined streets beckon 'come hither' summoning remembrances of Old Tuscany.  These "+
-    "harbingers of season provide a respite from the elements and the urgencies of life.  There are stunning views " +
+  this.content2=ko.observable("Tree lined streets beckon 'come hither' summoning remembrances of Old Tuscany. The trees -these "+
+    "harbingers of season- provide a respite from the elements and the urgencies of life.  There are stunning views " +
 	"from the walking trail and other vantage points.");
+  this.content3=ko.observable("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut "+
+  " labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea "+
+  " commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. "+
+  " Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.");
+  this.content4=ko.observable( "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, "+
+    "totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim "+
+    " ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem "+
+    "sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam "+
+    " eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem "+
+    "ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate "+
+    "velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?"
+
+);
   var self = this;
   this.name=ko.observable("Home");
   this.commHill_ratings=ko.observableArray([]);
@@ -151,7 +164,7 @@ var HomeView = function() {
 
   var accessor = {
                 consumerSecret : auth.consumerSecret,
-                tokenSecret : auth.accessTokenSecret
+                  tokenSecret : auth.accessTokenSecret
   };
   parameters = [];
   parameters.push(['term', terms]);
@@ -174,7 +187,7 @@ var HomeView = function() {
 
   var parameterMap = OAuth.getParameterMap(message.parameters);
 
-           
+
   $.ajax({
                 'url' : message.action,
                 'data' : parameterMap,
@@ -184,10 +197,10 @@ var HomeView = function() {
                 'success' : function(data, textStats, XMLHttpRequest) {
 
                     for (var i =0 ; i < data.businesses.length; i++)  {
-                    
+
                        self.commHill_ratings.push(data.businesses[i]);
                     }
-                  
+
                 }
   });
 };
@@ -214,7 +227,7 @@ ko.bindingHandlers.map = {
 
     var pointsArray = ko.toJS(mapObj.markers);
 
-  
+
     for (var i = 0 ; i < pointsArray.length; i++)  {
 
       var currentLatlng = new google.maps.LatLng(pointsArray[i].lat,pointsArray[i].lng);
@@ -224,7 +237,7 @@ ko.bindingHandlers.map = {
         title: pointsArray[i].name
       });
 	  /*
-	   * place the marker instance in the title to 
+	   * place the marker instance in the title to
 	   * instance map
 	   */
 	   theMapView.markerTitleToMarkerInstanceMap[marker.title]=marker;
@@ -247,13 +260,13 @@ ko.bindingHandlers.map = {
     google.maps.event.addListener(marker, 'click', function() {
 
         theMapView.setCurrentMarker(this);
-		
-		
+
+
 		infowindow.open(mapObj.googleMap,this);
     });
 
          // Handle the DOM ready event to create the StreetView panorama
-     
+
     google.maps.event.addListener(infowindow, "domready", function() {
         var pointsRecord = theMapView.getPointsArrayFromMarkerTitle(theMapView.currentMarker().title);
 		title.innerHTML=theMapView.currentMarker().title;
