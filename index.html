@@ -16,7 +16,7 @@
         <ul data-bind="foreach:viewList" id="navigation">
           <li data-bind="text:name, click:$parent.setView"></li>
         </ul>
-       
+
         <h4 data-bind="text:area_reviews"></h4>
           <ul data-bind="foreach:homeView.commHill_ratings" class="newsprint">
 
@@ -24,15 +24,17 @@
             </li>
 
           </ul>
-       
+
 	    </div>
 	    <div class="col-md-10">
       <!--  <div data-bind="with:currentView"> -->
         <h2 data-bind="text: name"></h2>
         <div data-bind="if :isHome">
-          <h3 data-bind="text: homeView.name">Home</h3>
+          <h3 data-bind="text: homeView.name"></h3>
           <p data-bind="text: homeView.content"></p>
+
           <p data-bind="text: homeView.content2"></p>
+           <div><img src="img/AdelineEvening.jpg" class="img-thumbnail" width=300" height="300" /></div>
          <!-- <ul id="nytimes-articles" class="article-list"> -->
         </div>
         <div data-bind="if :isHistory">
