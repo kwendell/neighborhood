@@ -19,6 +19,7 @@ var HomeView = function() {
 
 );
   var self = this;
+  this.title=ko.observable("Communications Hill");
   this.name=ko.observable("Home");
   this.commHill_ratings=ko.observableArray([]);
 
