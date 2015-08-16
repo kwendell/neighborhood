@@ -69,12 +69,12 @@ var MapView  = function() {
   mapViewSelf.points = ko.observableArray([
     {name:"Grand Staircase",lat:37.281927, lng:-121.856255,method:mapViewSelf.showMarker,heading:330,pitch:0,func:mapViewSelf.delegateToMarker},
     {name:"Vieira Park",lat:37.287020, lng:-121.861426,method:mapViewSelf.showMarker,heading:135,pitch:0,func:mapViewSelf.delegateToMarker},
-	{name:"Communications Hill Trail",lat:37.286008, lng:-121.861894,method:mapViewSelf.showMarker,heading:160,pitch:15,func:mapViewSelf.delegateToMarker}]);
+	 {name:"Communications Hill Trail",lat:37.286008, lng:-121.861894,method:mapViewSelf.showMarker,heading:160,pitch:15,func:mapViewSelf.delegateToMarker}]);
 
   /**
    * The google map api is put in the knockout context
    * so it can used in the data-bind attributes.
-   * the getPointsArrayFromMakerTitle is used
+   * the getPointsArrayFromMakerTitle method is used
    * to pass some data to that.
    */
   mapViewSelf.getPointsArrayFromMarkerTitle = function(title) {
@@ -88,7 +88,8 @@ var MapView  = function() {
 	return retobj;
   };
 
-
+  /** Filter method per project requirements
+   */
 
   mapViewSelf.search = ko.computed(function(){
     return ko.utils.arrayFilter(mapViewSelf.points(), function(point){
@@ -119,6 +120,8 @@ var MapView  = function() {
 
 /**
  * Put the custom binding in the map context
+ * so the 'map' property name can be used with Knockout's name/value
+ * context in the view.
  */
 
 ko.bindingHandlers.map = {
@@ -150,7 +153,10 @@ ko.bindingHandlers.map = {
       });
 	  /*
 	   * place the marker instance in the title to
-	   * instance map
+	   * instance map so the markers can be looked
+     * up from the view name.  This will be used
+     * to delegate a click event to a marker
+     * click event.
 	   */
 	   theMapView.markerTitleToMarkerInstanceMap[marker.title]=marker;
 
@@ -167,21 +173,19 @@ ko.bindingHandlers.map = {
         content: content
       });
 
-
-
-    google.maps.event.addListener(marker, 'click', function() {
+      google.maps.event.addListener(marker, 'click', function() {
 
         theMapView.setCurrentMarker(this);
 
 
-		infowindow.open(mapObj.googleMap,this);
-    });
+		    infowindow.open(mapObj.googleMap,this);
+      });
 
          // Handle the DOM ready event to create the StreetView panorama
 
-    google.maps.event.addListener(infowindow, "domready", function() {
+      google.maps.event.addListener(infowindow, "domready", function() {
         var pointsRecord = theMapView.getPointsArrayFromMarkerTitle(theMapView.currentMarker().title);
-		title.innerHTML=theMapView.currentMarker().title;
+		    title.innerHTML=theMapView.currentMarker().title;
 		// streetview is the div element reference for the panorama content destination.
         var panorama = new google.maps.StreetViewPanorama(streetview, {
             navigationControl: false,
@@ -189,27 +193,17 @@ ko.bindingHandlers.map = {
             addressControl: false,
             linksControl: false,
             visible: true,
-			pov: {
+			  pov: {
                heading: pointsRecord.heading,
                pitch: pointsRecord.pitch
-            },
-            position: theMapView.currentMarker().getPosition()
+              },
+              position: theMapView.currentMarker().getPosition()
+              });
         });
-    });
 
 
 
-    }
-
-
-    var defaultBounds = new google.maps.LatLngBounds(
-      new google.maps.LatLng(37.282002,-121.861894),
-      new google.maps.LatLng(37.286790,-121.860046));
-
-   // mapObj.googleMap.fitBounds(defaultBounds);
-
-
-
+      }
     }
   };
 ko.applyBindings(new ViewModel());

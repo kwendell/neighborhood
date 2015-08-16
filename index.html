@@ -37,7 +37,8 @@
           <p data-bind="text: homeView.content"></p>
 
 
-           <div><img src="img/AdelineEvening.jpg" class="img-thumbnail" width=250" height="250" align="left"/><p data-bind="text: homeView.content2"></p><img src="img/view.jpg" class="img-thumbnail" width=250" height="250" align="right"/>
+           <div><img src="img/AdelineEvening.jpg" class="img-thumbnail" width=250" height="250" align="left"/><p data-bind="text: homeView.content2"></p>
+           <<img src="img/view.jpg" class="img-thumbnail" width=250" height="250" align="right"/>
             <img src="img/apt.jpg" class="img-thumbnail" width=250" height="250" align="right"/>
           <p data-bind="text: homeView.content3">
           <p data-bind="text: homeView.content4">
@@ -46,8 +47,12 @@
         </div>
         <div data-bind="if :isHistory">
           <h3 data-bind="text: historyView.name"></h3>
-           <p data-bind="text:historyView.content"></p>
-             <img src="img/JoseSenhorinha.jpg" width="200" height="350" align="left" class="img-thumbnail"/>
+          <p data-bind="text:historyView.content"></p>
+          <figure style="float:left">
+             <img src="img/JoseSenhorinha.jpg" width="200" height="350" class="img-thumbnail"/>
+             <figcaption>Jose and Senhorinha Azevedo</figcaption>
+
+          </figure>
 
             <p data-bind="text:historyView.content2"></p>
         </div>
