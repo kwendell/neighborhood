@@ -5,7 +5,8 @@
 	 <!-- use bootstrap js for layout  -->
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/app.css">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<!--<meta name="viewport" content="width=device-width, initial-scale=1">-->
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
   <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?libraries=places"></script>
     <title>Communications Hill</title>
 </head>
@@ -13,7 +14,7 @@
   <div class="container">
     <div class="row">
 	    <div class="col-md-2">
-        <ul data-bind="foreach:viewList" id="navigation">
+        <ul data-bind="foreach:viewList" id="navigation" class="list-unstyled">
           <li data-bind="text:name, click:$parent.setView"></li>
         </ul>
 
@@ -38,7 +39,7 @@
 
 
            <div><img src="img/AdelineEvening.jpg" class="img-thumbnail" width=250" height="250" align="left"/><p data-bind="text: homeView.content2"></p>
-           <<img src="img/view.jpg" class="img-thumbnail" width=250" height="250" align="right"/>
+           <img src="img/view.jpg" class="img-thumbnail" width=250" height="250" align="right"/>
             <img src="img/apt.jpg" class="img-thumbnail" width=250" height="250" align="right"/>
           <p data-bind="text: homeView.content3">
           <p data-bind="text: homeView.content4">
