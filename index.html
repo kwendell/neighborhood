@@ -17,14 +17,16 @@
         <ul data-bind="foreach:viewList" id="navigation" class="list-unstyled">
           <li data-bind="text:name, click:$parent.setView"></li>
         </ul>
-
+ <!--
         <h4 data-bind="text:area_reviews"></h4>
+		 
           <ul data-bind="foreach:homeView.commHill_ratings" class="newsprint">
 
             <li><span data-bind="text: name+', '"></span>Rating:</span><span data-bind="text: rating"></span><p data-bind="text: snippet_text"></p>
             </li>
 
           </ul>
+		  -->
 
 	    </div>
 	    <div class="col-md-10">
@@ -75,7 +77,7 @@
               <div class="col-md-3">
 
                 <input id="s-input" class="controls" type="search" data-bind="textInput: mapView.query, valueUpdate: 'keyup'"></input>
-                <ul data-bind="foreach:mapView.search()">
+                <ul data-bind="foreach:mapView.search()" class="list-unstyled">
                   <li ><a data-bind="text:name,click:func"></a></li>
                 </ul>
               </div>  <!-- end small col -->
