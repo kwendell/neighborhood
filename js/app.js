@@ -79,7 +79,8 @@ var MapView  = function() {
    */
   mapViewSelf.getPointsArrayFromMarkerTitle = function(title) {
 	var retobj = null;
-	for (var i=0;i<mapViewSelf.points().length;i++) {
+  var pointsLen = mapViewSelf.points().length;
+	for (var i=0;i<pointsLen;i++) {
 	    if (mapViewSelf.points()[i].name===title) {
           retobj=mapViewSelf.points()[i];
           break;
@@ -96,7 +97,7 @@ var MapView  = function() {
     return ko.utils.arrayFilter(mapViewSelf.points(), function(point){
     var retval = point.name.toLowerCase().indexOf(mapViewSelf.query().toLowerCase()) >= 0;
 
-    console.log(retval,point.name);
+
     if (retval==true) {
       matches.push(point.name);
     }
@@ -115,7 +116,7 @@ var MapView  = function() {
        // console.log(key + " -> " + mapViewSelf.markerTitleToMarkerInstanceMap[key]);
       }
     }
-    console.log("----------");
+
     return retval;
     });
   });
