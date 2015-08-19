@@ -92,10 +92,31 @@ var MapView  = function() {
    */
 
   mapViewSelf.search = ko.computed(function(){
+    var matches = new Array();
     return ko.utils.arrayFilter(mapViewSelf.points(), function(point){
+    var retval = point.name.toLowerCase().indexOf(mapViewSelf.query().toLowerCase()) >= 0;
 
-     return point.name.toLowerCase().indexOf(mapViewSelf.query().toLowerCase()) >= 0;
+    console.log(retval,point.name);
+    if (retval==true) {
+      matches.push(point.name);
+    }
 
+    for ( var key in mapViewSelf.markerTitleToMarkerInstanceMap) {
+      if (mapViewSelf.markerTitleToMarkerInstanceMap.hasOwnProperty(key)) {
+        var found = $.inArray(key, matches) > -1;
+        if (found) {
+
+          mapViewSelf.markerTitleToMarkerInstanceMap[key].setVisible(true);
+        } else {
+
+           mapViewSelf.markerTitleToMarkerInstanceMap[key].setVisible(false);
+        }
+
+       // console.log(key + " -> " + mapViewSelf.markerTitleToMarkerInstanceMap[key]);
+      }
+    }
+    console.log("----------");
+    return retval;
     });
   });
 
