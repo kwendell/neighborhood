@@ -1,28 +1,21 @@
 body {
-  color:black;
+  color: black;
   background-color: oldlace;
 }
 
-.newsprint {
-	background-color: white;
-	font-family: serif;
-	padding: 12px 12px 12px 12px;
-	font-size: 11px;
-}
-
 #navigation {
-
-	font-size: 24px;
+	font-size: 2em;
 }
+
 #pac-input {
 	width: 16em;
 	height: 2em;
 }
+
 figcaption {
 	text-transform: uppercase;
-	 display:table-caption;
-	  caption-side:bottom;
-
+	display:table-caption;
+	caption-side:bottom;
 }
 
 figure {
