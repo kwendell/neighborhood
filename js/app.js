@@ -198,12 +198,16 @@ ko.bindingHandlers.map = {
       google.maps.event.addListener(marker, 'click', function() {
 
         theMapView.setCurrentMarker(this);
+		this.setAnimation(google.maps.Animation.BOUNCE);
 
 
 		    infowindow.open(mapObj.googleMap,this);
       });
 
          // Handle the DOM ready event to create the StreetView panorama
+      google.maps.event.addListener(infowindow, 'closeclick', function() {
+	    theMapView.currentMarker().setAnimation(null);}
+	  );
 
       google.maps.event.addListener(infowindow, "domready", function() {
         var pointsRecord = theMapView.getPointsArrayFromMarkerTitle(theMapView.currentMarker().title);
