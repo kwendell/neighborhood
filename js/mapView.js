@@ -157,7 +157,7 @@ var MapView  = function() {
                 'success' : function(data, textStats, XMLHttpRequest) {
 
 
-// theMapView.markerTitleToYelpObject[marker.title]=marker;
+
                     for (var i =0 ; i < data.businesses.length; i++)  {
 					  /* check for a match for each marker with 
 					   * the business name.  If there is a match,
@@ -168,7 +168,7 @@ var MapView  = function() {
                          var entityName = mapViewSelf.points()[p].name;
 						
 						 if (data.businesses[i].name.toLowerCase().indexOf(entityName.toLowerCase())!=-1) {
-						 alert("yelp review found for "+entityName);
+						    mapViewSelf.marketTitleToYelpObject[entityName]=data.businesses[i];
 						 }
 
                        

@@ -82,6 +82,10 @@ ko.bindingHandlers.map = {
       var streetview = document.createElement("div");
       streetview.style.width = "200px";
       streetview.style.height = "200px";
+	  
+	  if (theMapView.marketTitleToYelpObject[marker.title]) {
+	  console.log("Yay...found a yelp review for "+marker.title);
+	  }
       content.appendChild(streetview);
 
       var infowindow = new google.maps.InfoWindow({
