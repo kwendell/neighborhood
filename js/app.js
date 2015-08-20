@@ -61,11 +61,22 @@ ko.bindingHandlers.map = {
     for (var i = 0 ; i < pointsArray.length; i++)  {
 
       var currentLatlng = new google.maps.LatLng(pointsArray[i].lat,pointsArray[i].lng);
-      var marker = new google.maps.Marker({
+	  var marker;
+	  if (theMapView.marketTitleToYelpObject[pointsArray[i].name]) {
+	    marker = new google.maps.Marker({
+        position: currentLatlng,
+        map: mapObj.googleMap,
+        title: pointsArray[i].name,
+		icon: 'img/yelp.png'
+      });
+	  } else {
+	    marker = new google.maps.Marker({
         position: currentLatlng,
         map: mapObj.googleMap,
         title: pointsArray[i].name
       });
+	  }
+     
 	  /*
 	   * place the marker instance in the title to
 	   * instance map so the markers can be looked
@@ -132,6 +143,7 @@ ko.bindingHandlers.map = {
 			if (theMapView.marketTitleToYelpObject[theMapView.currentMarker().title]) {
 			yelpRating.innerHTML="Yelp Rating: "+theMapView.marketTitleToYelpObject[theMapView.currentMarker().title].
 			rating;
+			//theMapView.currentMarker().setIcon('img/yelp.png');
 			} else {
 			yelpRating.innerHTML="";
 			}
