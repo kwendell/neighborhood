@@ -20,6 +20,8 @@ var MapView  = function() {
    var theMarker = mapViewSelf.markerTitleToMarkerInstanceMap[this.name];
 	google.maps.event.trigger(theMarker, 'click');
   };
+  
+  mapViewSelf.marketTitleToYelpObject = new Array();
 
   mapViewSelf.query = ko.observable('');
 
@@ -28,9 +30,9 @@ var MapView  = function() {
    */
 
   mapViewSelf.points = ko.observableArray([
-    {name:"Grand Staircase",lat:37.281927, lng:-121.856255,method:mapViewSelf.showMarker,heading:330,pitch:0,func:mapViewSelf.delegateToMarker,yelp:null},
-    {name:"Vieira Park",lat:37.287020, lng:-121.861426,method:mapViewSelf.showMarker,heading:135,pitch:0,func:mapViewSelf.delegateToMarker,yelp:null},
-	  {name:"Communications Hill Trail",lat:37.286008, lng:-121.861894,method:mapViewSelf.showMarker,heading:160,pitch:15,func:mapViewSelf.delegateToMarker,yelp:null}]);
+    {name:"Grand Staircase",lat:37.281927, lng:-121.856255,method:mapViewSelf.showMarker,heading:330,pitch:0,func:mapViewSelf.delegateToMarker},
+    {name:"Vieira Park",lat:37.287020, lng:-121.861426,method:mapViewSelf.showMarker,heading:135,pitch:0,func:mapViewSelf.delegateToMarker},
+	  {name:"Communications Hill Trail",lat:37.286008, lng:-121.861894,method:mapViewSelf.showMarker,heading:160,pitch:15,func:mapViewSelf.delegateToMarker}]);
 
   /**
    * The google map api is put in the knockout context
@@ -62,7 +64,9 @@ var MapView  = function() {
     if (retval==true) {
       matches.push(point.name);
     }
-
+    /*
+	 * Hide or show markers based on the search results
+	 */
     for ( var key in mapViewSelf.markerTitleToMarkerInstanceMap) {
       if (mapViewSelf.markerTitleToMarkerInstanceMap.hasOwnProperty(key)) {
         var found = $.inArray(key, matches) > -1;
@@ -74,7 +78,7 @@ var MapView  = function() {
            mapViewSelf.markerTitleToMarkerInstanceMap[key].setVisible(false);
         }
 
-       // console.log(key + " -> " + mapViewSelf.markerTitleToMarkerInstanceMap[key]);
+ 
       }
     }
 
@@ -112,7 +116,7 @@ var MapView  = function() {
     }
   };
 
-  var term = "Vieira Park";
+  var term = "Communications Hill";
   var near = 'San+Jose';
 
   var accessor = {
@@ -153,13 +157,25 @@ var MapView  = function() {
                 'success' : function(data, textStats, XMLHttpRequest) {
 
 
-
+// theMapView.markerTitleToYelpObject[marker.title]=marker;
                     for (var i =0 ; i < data.businesses.length; i++)  {
+					  /* check for a match for each marker with 
+					   * the business name.  If there is a match,
+					   * put it in the map so it can be shown
+					   * in the info window.
+					   */
+					   for (var p=0;p<mapViewSelf.points().length;p++) {
+                         var entityName = mapViewSelf.points()[p].name;
+						
+						 if (data.businesses[i].name.toLowerCase().indexOf(entityName.toLowerCase())!=-1) {
+						 alert("yelp review found for "+entityName);
+						 }
 
-                        console.log(data.businesses[i]);
+                       
+                       }
+
                     }
-
-                }
+					}
   }).error(console.log("error"));
 
 
