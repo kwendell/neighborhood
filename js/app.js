@@ -79,13 +79,19 @@ ko.bindingHandlers.map = {
       var title = document.createElement("div");
       title.innerHTML = pointsArray[i].name;
       content.appendChild(title);
-      var streetview = document.createElement("div");
+      
+	 
+	  var yelpRating = document.createElement("div");
+	 
+	  content.appendChild(yelpRating);
+
+	  
+	
+	
+	  var streetview = document.createElement("div");
       streetview.style.width = "200px";
       streetview.style.height = "200px";
 	  
-	  if (theMapView.marketTitleToYelpObject[marker.title]) {
-	  console.log("Yay...found a yelp review for "+marker.title);
-	  }
       content.appendChild(streetview);
 
       var infowindow = new google.maps.InfoWindow({
@@ -123,6 +129,12 @@ ko.bindingHandlers.map = {
       google.maps.event.addListener(infowindow, "domready", function() {
         var pointsRecord = theMapView.getPointsArrayFromMarkerTitle(theMapView.currentMarker().title);
 		    title.innerHTML=theMapView.currentMarker().title;
+			if (theMapView.marketTitleToYelpObject[theMapView.currentMarker().title]) {
+			yelpRating.innerHTML="Yelp Rating: "+theMapView.marketTitleToYelpObject[theMapView.currentMarker().title].
+			rating;
+			} else {
+			yelpRating.innerHTML="";
+			}
 		// streetview is the div element reference for the panorama content destination.
         var panorama = new google.maps.StreetViewPanorama(streetview, {
             navigationControl: false,
