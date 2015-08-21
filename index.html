@@ -36,11 +36,11 @@
 
 
         <div>
-		      <img src="img/AdelineEvening.jpg" class="img-thumbnail" width=250" height="250" align="left" />
+		      <img src="img/AdelineEvening.jpg" class="img-thumbnail" width="250" height="250" align="left" alt="Adeline Street, Evenging" />
 		      <p data-bind="text: homeView.content2" ></p>
 
-            <img src="img/view.jpg" class="img-thumbnail" width=250" height="250" align="right" />
-            <img src="img/apt.jpg" class="img-thumbnail" width=250" height="250" align="right" />
+            <img src="img/view.jpg" class="img-thumbnail" width="250" height="250" align="right" alt="View from the trail" />
+            <img src="img/apt.jpg" class="img-thumbnail" width="250" height="250" align="right" alt="Comm Hill condo complex" />
 
           <p data-bind="text: homeView.content3">
           <p data-bind="text: homeView.content4">
@@ -49,16 +49,16 @@
       </div>
 
       <div data-bind="if :isHistory ">
-        <h3 data-bind="text: historyView.name "></h3>
-        <p data-bind="text:historyView.content "></p>
+        <h3 data-bind="text: historyView.name"></h3>
+        <p data-bind="text:historyView.content"></p>
 
         <figure style="float:left ">
-          <img src="img/JoseSenhorinha.jpg " width="200 " height="350 " class="img-thumbnail "/>
+          <img src="img/JoseSenhorinha.jpg" width="200" height="350" class="img-thumbnail" alt="Jose and Senhorinha" />
           <figcaption>Jose and Senhorinha Azevedo</figcaption>
         </figure>
 
         <figure style="float:right ">
-          <img src="img/MaryHelenJoseph.jpg " width="200 " height="350 " class="img-thumbnail "/>
+          <img src="img/MaryHelenJoseph.jpg " width="200" height="350" class="img-thumbnail" alt="Mary Helen and Joseph" />
           <figcaption>Mary Helen and Joseph Machado</figcaption>
         </figure>
         <p data-bind="text:historyView.content2 "></p>
@@ -68,18 +68,18 @@
       </div>
 
         <div data-bind="if :isMap ">
-          <h3 data-bind="text: mapView.name "></h3>
+          <h3 data-bind="text: mapView.name"></h3>
           <div class="container ">
             <div class="row ">
               <div class="col-md-3 ">
 
-                <input id="s-input " class="controls " type="search " data-bind="textInput: mapView.query, valueUpdate: 'keyup' "></input>
-                <ul data-bind="foreach:mapView.search() " class="list-unstyled ">
-                  <li ><a data-bind="text:name,click:func "></a></li>
+                <input id="s-input" class="controls" type="search" data-bind="textInput: mapView.query, valueUpdate: 'keyup'"></input>
+                <ul data-bind="foreach:mapView.search()" class="list-unstyled">
+                  <li ><a data-bind="text:name,click:func"></a></li>
                 </ul>
               </div>  <!-- end small col -->
               <div class="col-md-9 ">
-                <div id="mapDiv " data-bind="style:{width: '100 %',height: '500px'},map:mapView.myMap "></div>
+                <div id="mapDiv" data-bind="style:{width: '100 %',height: '500px'},map:mapView.myMap "></div>
               </div>  <!-- end small col -->
             </div>  <!-- end small row -->
           </div>  <!-- emd small container  -->
