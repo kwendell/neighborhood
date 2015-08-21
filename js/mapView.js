@@ -6,22 +6,22 @@ var MapView  = function() {
   var mapViewSelf = this;
 
   mapViewSelf.currentMarker = ko.observable();
-  mapViewSelf.setCurrentMarker = function(marker) {mapViewSelf.currentMarker(marker)};
+  mapViewSelf.setCurrentMarker = function(marker) {mapViewSelf.currentMarker(marker);};
 
   /*
    * This array is necessary to delegate the event from the
    * location link element to the marker element event.
    */
 
-  mapViewSelf.markerTitleToMarkerInstanceMap = new Array();
+  mapViewSelf.markerTitleToMarkerInstanceMap = [];
   mapViewSelf.delegateToMarker = function() {
    // Get the marker instance and fire a click event
    // to open the streetview panorama
-   var theMarker = mapViewSelf.markerTitleToMarkerInstanceMap[this.name];
-	google.maps.event.trigger(theMarker, 'click');
+    var theMarker = mapViewSelf.markerTitleToMarkerInstanceMap[this.name];
+	  google.maps.event.trigger(theMarker, 'click');
   };
 
-  mapViewSelf.marketTitleToYelpObject = new Array();
+  mapViewSelf.marketTitleToYelpObject = [];
 
   mapViewSelf.query = ko.observable('');
 
@@ -56,12 +56,12 @@ var MapView  = function() {
    */
 
   mapViewSelf.search = ko.computed(function(){
-    var matches = new Array();
+    var matches = [];
     return ko.utils.arrayFilter(mapViewSelf.points(), function(point){
     var retval = point.name.toLowerCase().indexOf(mapViewSelf.query().toLowerCase()) >= 0;
 
 
-    if (retval==true) {
+    if (retval===true) {
       matches.push(point.name);
     }
     /*
@@ -95,7 +95,7 @@ var MapView  = function() {
   mapViewSelf.YelpApiFailure = true;
 
 
-  mapViewSelf.markerTitleYelpReviewMap=new Array();
+  mapViewSelf.markerTitleYelpReviewMap=[];
 
   var auth = {
                 //
