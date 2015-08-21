@@ -51,7 +51,7 @@ ko.bindingHandlers.map = {
 
 
     var mapOptions = { center: latLng,
-                          zoom: 15,
+                          zoom: 16,
                           mapTypeId: google.maps.MapTypeId.ROADMAP};
     mapObj.googleMap = new google.maps.Map(element, mapOptions);
 
@@ -76,7 +76,7 @@ ko.bindingHandlers.map = {
         title: pointsArray[i].name
       });
 	  }
-     
+
 	  /*
 	   * place the marker instance in the title to
 	   * instance map so the markers can be looked
@@ -90,19 +90,19 @@ ko.bindingHandlers.map = {
       var title = document.createElement("div");
       title.innerHTML = pointsArray[i].name;
       content.appendChild(title);
-      
-	 
+
+
 	  var yelpRating = document.createElement("div");
-	 
+
 	  content.appendChild(yelpRating);
 
-	  
-	
-	
+
+
+
 	  var streetview = document.createElement("div");
       streetview.style.width = "200px";
       streetview.style.height = "200px";
-	  
+
       content.appendChild(streetview);
 
       var infowindow = new google.maps.InfoWindow({
@@ -113,18 +113,18 @@ ko.bindingHandlers.map = {
 
         theMapView.setCurrentMarker(this);
 	//	this.setAnimation(google.maps.Animation.BOUNCE);
-		
+
 		// stop all other markers from bounding
 		  for ( var key in theMapView.markerTitleToMarkerInstanceMap) {
               var aMarker = theMapView.markerTitleToMarkerInstanceMap[key];
 			  if (key===this.title) {
-			     this.setAnimation(google.maps.Animation.BOUNCE);  
+			     this.setAnimation(google.maps.Animation.BOUNCE);
 			  } else {
 			    theMapView.markerTitleToMarkerInstanceMap[key].setAnimation(null);
 			  }
-			
+
 		  }
-		
+
 
 
 		    infowindow.open(mapObj.googleMap,this);
@@ -134,8 +134,8 @@ ko.bindingHandlers.map = {
       google.maps.event.addListener(infowindow, 'closeclick', function() {
 	    theMapView.currentMarker().setAnimation(null);}
 	  );
-	  
-	  
+
+
 
       google.maps.event.addListener(infowindow, "domready", function() {
         var pointsRecord = theMapView.getPointsArrayFromMarkerTitle(theMapView.currentMarker().title);

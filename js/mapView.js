@@ -20,7 +20,7 @@ var MapView  = function() {
    var theMarker = mapViewSelf.markerTitleToMarkerInstanceMap[this.name];
 	google.maps.event.trigger(theMarker, 'click');
   };
-  
+
   mapViewSelf.marketTitleToYelpObject = new Array();
 
   mapViewSelf.query = ko.observable('');
@@ -78,7 +78,7 @@ var MapView  = function() {
            mapViewSelf.markerTitleToMarkerInstanceMap[key].setVisible(false);
         }
 
- 
+
       }
     }
 
@@ -92,13 +92,7 @@ var MapView  = function() {
   /** YELP API
    *
    */
-   var terms = new Array();
-   for (var p=0;p<mapViewSelf.points().length;p++) {
-     var str = mapViewSelf.points()[p].name;
-     str=str.replace(/[ ]/g,'+');
-     terms.push(str);
 
-   }
 
    mapViewSelf.markerTitleYelpReviewMap=new Array();
 
@@ -159,19 +153,19 @@ var MapView  = function() {
 
 
                     for (var i =0 ; i < data.businesses.length; i++)  {
-					  /* check for a match for each marker with 
+					  /* check for a match for each marker with
 					   * the business name.  If there is a match,
 					   * put it in the map so it can be shown
 					   * in the info window.
 					   */
 					   for (var p=0;p<mapViewSelf.points().length;p++) {
                          var entityName = mapViewSelf.points()[p].name;
-						
+
 						 if (data.businesses[i].name.toLowerCase().indexOf(entityName.toLowerCase())!=-1) {
 						    mapViewSelf.marketTitleToYelpObject[entityName]=data.businesses[i];
 						 }
 
-                       
+
                        }
 
                     }
@@ -184,8 +178,8 @@ var MapView  = function() {
  // Map constructor
   mapViewSelf.myMap = ko.observable({
   // center 37.286008, lng:-121.861894
-    lat: ko.observable(37.286008),
-    lng: ko.observable(-121.861894),
+    lat: ko.observable(37.284008),
+    lng: ko.observable(-121.859544),
     markers: ko.observable(mapViewSelf.points),
     // put the view object reference in the context yo
 
