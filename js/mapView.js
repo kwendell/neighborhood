@@ -92,9 +92,10 @@ var MapView  = function() {
   /** YELP API
    *
    */
+  mapViewSelf.YelpApiFailure = true;
 
 
-   mapViewSelf.markerTitleYelpReviewMap=new Array();
+  mapViewSelf.markerTitleYelpReviewMap=new Array();
 
   var auth = {
                 //
@@ -149,10 +150,9 @@ var MapView  = function() {
                 'dataType' : 'jsonp',
                 'jsonpCallback' : 'cb',
                 'success' : function(data, textStats, XMLHttpRequest) {
+                 mapViewSelf.YelpApiFailure=false;
 
-
-
-                    for (var i =0 ; i < data.businesses.length; i++)  {
+                for (var i =0 ; i < data.businesses.length; i++)  {
 					  /* check for a match for each marker with
 					   * the business name.  If there is a match,
 					   * put it in the map so it can be shown
@@ -170,7 +170,7 @@ var MapView  = function() {
 
                     }
 					}
-  }).error(console.log("error"));
+  }).error(mapViewSelf.YelpApiFailure=true);
 
 
 

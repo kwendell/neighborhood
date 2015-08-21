@@ -140,13 +140,18 @@ ko.bindingHandlers.map = {
       google.maps.event.addListener(infowindow, "domready", function() {
         var pointsRecord = theMapView.getPointsArrayFromMarkerTitle(theMapView.currentMarker().title);
 		    title.innerHTML=theMapView.currentMarker().title;
-			if (theMapView.marketTitleToYelpObject[theMapView.currentMarker().title]) {
-			yelpRating.innerHTML="Yelp Rating: "+theMapView.marketTitleToYelpObject[theMapView.currentMarker().title].
-			rating;
-			//theMapView.currentMarker().setIcon('img/yelp.png');
-			} else {
-			yelpRating.innerHTML="";
-			}
+
+      if (theMapView.YelpApiFailure==false) {
+			  if (theMapView.marketTitleToYelpObject[theMapView.currentMarker().title]) {
+			    yelpRating.innerHTML="Yelp Rating: "+theMapView.marketTitleToYelpObject[theMapView.currentMarker().title].
+			    rating;
+
+			  } else {
+			    yelpRating.innerHTML="";
+			  }
+      } else {
+         yelpRating.innerHTML="Yelp Service Rating Request Failed.  Please reload page";
+      }
 		// streetview is the div element reference for the panorama content destination.
         var panorama = new google.maps.StreetViewPanorama(streetview, {
             navigationControl: false,
