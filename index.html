@@ -6,6 +6,7 @@
   <!-- use bootstrap js for layout  -->
   <link rel="stylesheet" href="css/bootstrap.min.css">
   <link rel="stylesheet" href="css/app.css">
+  <link href="css/simple-sidebar.css" rel="stylesheet">
   <!--<meta name="viewport" content="width=device-width, initial-scale=1">-->
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
   <script src="http://maps.googleapis.com/maps/api/js?libraries=places"></script>
@@ -13,67 +14,56 @@
 </head>
 
 <body>
-  <div class="container">
-    <div class="row">
-      <div class="col-md-2">
-        <ul data-bind="foreach:viewList" id="navigation" class="list-unstyled">
-          <li data-bind="text:name, click:$parent.setView"></li>
-        </ul>
-		
-		<!--
-        <h4 data-bind="text:area_reviews"></h4>
-          <ul data-bind="foreach:homeView.commHill_ratings" class="newsprint">
+  <div id="wrapper">
+    <div id="sidebar-wrapper">
 
-            <li><span data-bind="text: name+', '"></span>Rating:</span><span data-bind="text: rating"></span><p data-bind="text: snippet_text"></p>
-            </li>
+      <ul data-bind="foreach:viewList"  class="sidebar-nav">
+        <li data-bind="text:name, click:$parent.setView" class="sidebar-brand"></li>
+      </ul>
+    </div>   <!-- sidebar-wrapper -->
 
-          </ul>
-        -->
+    <div id="page-content-wrapper">
+       <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Toggle Menu</a>
 
-
-      </div>
-      <div class="col-md-10">
         <!--  <div data-bind="with:currentView"> -->
-        <h2 data-bind="text: name"></h2>
-        <div data-bind="if :isHome">
-          <h1 data-bind="text: homeView.title"></h1>
+
+      <div data-bind="if :isHome">
+        <h1 data-bind="text: homeView.title"></h1>
 
           <img src="img/panorama_cropped.jpg" class="img-responsive" alt="panorama image"/>
 
           <p data-bind="text: homeView.content"></p>
 
 
-          <div>
-		    <img src="img/AdelineEvening.jpg" class="img-thumbnail" width=250" height="250" align="left"/>
-		    <p data-bind="text: homeView.content2"></p>
-            <img src="img/view.jpg" class="img-thumbnail" width=250" height="250" align="right" />
-            <img src="img/apt.jpg" class="img-thumbnail" width=250" height="250" align="right" />
-            <p data-bind="text: homeView.content3">
-            <p data-bind="text: homeView.content4">
-          </div>
-         <!-- <ul id="nytimes-articles " class="article-list "> -->
+        <div>
+		      <img src="img/AdelineEvening.jpg" class="img-thumbnail" width=250" height="250" align="left" />
+		      <p data-bind="text: homeView.content2" ></p>
+          <img src="img/view.jpg" class="img-thumbnail" width=250" height="250" align="right" />
+          <img src="img/apt.jpg" class="img-thumbnail" width=250" height="250" align="right" />
+          <p data-bind="text: homeView.content3">
+          <p data-bind="text: homeView.content4">
         </div>
-        <div data-bind="if :isHistory ">
-          <h3 data-bind="text: historyView.name "></h3>
-          <p data-bind="text:historyView.content "></p>
 
-          <figure style="float:left ">
-             <img src="img/JoseSenhorinha.jpg " width="200 " height="350 " class="img-thumbnail "/>
-             <figcaption>Jose and Senhorinha Azevedo</figcaption>
-          </figure>
+      </div>
 
-          <figure style="float:right ">
-            <img src="img/MaryHelenJoseph.jpg " width="200 " height="350 " class="img-thumbnail "/>
-            <figcaption>Mary Helen and Joseph Machado</figcaption>
-          </figure>
-            <p data-bind="text:historyView.content2 "></p>
+      <div data-bind="if :isHistory ">
+        <h3 data-bind="text: historyView.name "></h3>
+        <p data-bind="text:historyView.content "></p>
 
-          <p data-bind="text:historyView.content3 "></p>
+        <figure style="float:left ">
+          <img src="img/JoseSenhorinha.jpg " width="200 " height="350 " class="img-thumbnail "/>
+          <figcaption>Jose and Senhorinha Azevedo</figcaption>
+        </figure>
 
+        <figure style="float:right ">
+          <img src="img/MaryHelenJoseph.jpg " width="200 " height="350 " class="img-thumbnail "/>
+          <figcaption>Mary Helen and Joseph Machado</figcaption>
+        </figure>
+        <p data-bind="text:historyView.content2 "></p>
 
+        <p data-bind="text:historyView.content3 "></p>
 
-
-        </div>
+      </div>
 
         <div data-bind="if :isMap ">
           <h3 data-bind="text: mapView.name "></h3>
@@ -95,21 +85,22 @@
       </div> <!-- end isMap -->
 
 
-    </div>  <!-- big row -->
-  </div>  <!-- big conainer -->
-  <!--</div>-->
 
-      <!--  </div>-->
-    <!--  </div>-->
-    <!--</div>-->
-
-  <!--</div>-->
+  </div>  <!-- page-content-wrapper -->
+</div>  <!-- end wrapper -->
+  <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+  <script>
+    $("#menu-toggle").click(function(e) {
+        e.preventDefault();
+        $("#wrapper").toggleClass("toggled");
+    });
+   </script>
 
   <script src="js/homeView.js "></script>
   <script src="js/mapView.js "></script>
   <script src="js/historyView.js "></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.3.0/knockout-min.js"></script>
-  <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+
   <script src="js/oauth.js "></script>
   <script src="js/sha1.js "></script>
   <script src="js/app.js "></script>
