@@ -34,14 +34,14 @@
   // method to keep track of currently selected view.
   this.setView = function(clickedView) {
     self.currentView(clickedView);
-  }
+  };
 };
 
 
 
 ko.bindingHandlers.map = {
 
-  init: function (element, valueAccessor, allBindingsAccessor, viewModel) {
+  init: function (element, valueAccessor, viewModel) {
 	  var mapObj = ko.utils.unwrapObservable(valueAccessor());
 	  var latLng = new google.maps.LatLng(
             ko.utils.unwrapObservable(mapObj.lat),
@@ -116,13 +116,14 @@ ko.bindingHandlers.map = {
 
 		// stop all other markers from bounding
 		  for ( var key in theMapView.markerTitleToMarkerInstanceMap) {
-              var aMarker = theMapView.markerTitleToMarkerInstanceMap[key];
-			  if (key===this.title) {
-			     this.setAnimation(google.maps.Animation.BOUNCE);
-			  } else {
+        if (theMapView.markerTitleToMarkerInstanceMap.hasOwnProperty(key)) {
+          var aMarker = theMapView.markerTitleToMarkerInstanceMap[key];
+			    if (key===this.title) {
+			      this.setAnimation(google.maps.Animation.BOUNCE);
+			    } else {
 			    theMapView.markerTitleToMarkerInstanceMap[key].setAnimation(null);
-			  }
-
+			    }
+        }
 		  }
 
 
@@ -141,7 +142,7 @@ ko.bindingHandlers.map = {
         var pointsRecord = theMapView.getPointsArrayFromMarkerTitle(theMapView.currentMarker().title);
 		    title.innerHTML=theMapView.currentMarker().title;
 
-      if (theMapView.YelpApiFailure==false) {
+      if (theMapView.YelpApiFailure===false) {
 			  if (theMapView.marketTitleToYelpObject[theMapView.currentMarker().title]) {
 			    yelpRating.innerHTML="Yelp Rating: "+theMapView.marketTitleToYelpObject[theMapView.currentMarker().title].
 			    rating;
