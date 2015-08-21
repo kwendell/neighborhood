@@ -22,4 +22,4 @@ var HomeView = function() {
   this.title=ko.observable("Communications Hill");
   this.name=ko.observable("Home");
 
-}
+};
