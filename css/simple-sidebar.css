@@ -15,13 +15,14 @@
 }
 
 #wrapper.toggled {
-    padding-left: 250px;
+    padding-left: 125px;
 }
 
 #sidebar-wrapper {
     z-index: 1000;
     position: fixed;
     left: 250px;
+    top: 100px;
     width: 0;
     height: 100%;
     margin-left: -250px;
@@ -53,15 +54,15 @@
 .sidebar-nav {
     position: absolute;
     top: 0;
-    width: 120px;
+    width: 200  px;
     margin: 0;
     padding: 0;
     list-style: none;
 }
 
 .sidebar-nav li {
-    text-indent: 20px;
-    line-height: 40px;
+    text-indent: 1em;
+    line-height: 1em;
 }
 
 .sidebar-nav li a {
@@ -82,9 +83,9 @@
 }
 
 .sidebar-nav > .sidebar-brand {
-    height: 65px;
-    font-size: 18px;
-    line-height: 60px;
+    height: 42px;
+    font-size: 2em;
+    line-height: 28px;
 }
 
 .sidebar-nav > .sidebar-brand a {
@@ -106,7 +107,7 @@
     }
 
     #sidebar-wrapper {
-        width: 250px;
+        width: 125px;
     }
 
     #wrapper.toggled #sidebar-wrapper {
