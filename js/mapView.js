@@ -55,8 +55,18 @@ var MapView = function() {
     heading: 160,
     pitch: 15,
     func: mapViewSelf.delegateToMarker
+  },{
+    name: "Fire Station",
+    lat: 37.285687,
+    lng:  -121.858848,
+    method: mapViewSelf.showMarker,
+    heading: 270,
+    pitch: 0,
+    func: mapViewSelf.delegateToMarker
   }]);
 
+
+//,
   /**
    * The google map api is put in the knockout context
    * so it can used in the data-bind attributes.
