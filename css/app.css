@@ -3,7 +3,7 @@ body {
   background-color: oldlace;
 }
 
-#navigation {
+.navigation {
 	font-size: 2em;
 }
 
@@ -14,15 +14,15 @@ body {
 
 figcaption {
 	text-transform: uppercase;
-	display:table-caption;
-	caption-side:bottom;
+	display: table-caption;
+	caption-side: bottom;
 }
 
 figure {
     text-align: center;
     display: table;
     max-width: 30%; /* demo; set some amount (px or %) if you can */
-    margin: 10px 10px 10px 10px ; /* not needed unless you want centered */
+    margin: 10px; /* not needed unless you want centered */
 }
 .image-left {
  float:left; margin: 0 15px 15px 0;
