@@ -15,19 +15,18 @@
 }
 
 #wrapper.toggled {
-    padding-left: 125px;
+    padding-left: 250px;
 }
 
 #sidebar-wrapper {
     z-index: 1000;
     position: fixed;
     left: 250px;
-    top: 100px;
     width: 0;
     height: 100%;
     margin-left: -250px;
     overflow-y: auto;
-    //background: #fff;
+   // background: #000;
     -webkit-transition: all 0.5s ease;
     -moz-transition: all 0.5s ease;
     -o-transition: all 0.5s ease;
@@ -35,7 +34,7 @@
 }
 
 #wrapper.toggled #sidebar-wrapper {
-    width: 80px;
+    width: 250px;
 }
 
 #page-content-wrapper {
@@ -54,15 +53,15 @@
 .sidebar-nav {
     position: absolute;
     top: 0;
-    width: 200  px;
+    width: 250px;
     margin: 0;
     padding: 0;
     list-style: none;
 }
 
 .sidebar-nav li {
-    text-indent: 1em;
-    line-height: 1em;
+    text-indent: 20px;
+    line-height: 40px;
 }
 
 .sidebar-nav li a {
@@ -83,9 +82,9 @@
 }
 
 .sidebar-nav > .sidebar-brand {
-    height: 42px;
-    font-size: 2em;
-    line-height: 28px;
+    height: 65px;
+    font-size: 18px;
+    line-height: 60px;
 }
 
 .sidebar-nav > .sidebar-brand a {
@@ -107,7 +106,7 @@
     }
 
     #sidebar-wrapper {
-        width: 125px;
+        width: 250px;
     }
 
     #wrapper.toggled #sidebar-wrapper {
