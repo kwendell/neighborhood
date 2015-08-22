@@ -63,6 +63,14 @@ var MapView = function() {
     heading: 270,
     pitch: 0,
     func: mapViewSelf.delegateToMarker
+  }, {
+    name: "Vantage Point",
+    lat: 37.283280,
+    lng:  -121.857551,
+    method: mapViewSelf.showMarker,
+    heading: 210,
+    pitch: 0,
+    func: mapViewSelf.delegateToMarker
   }]);
 
 
